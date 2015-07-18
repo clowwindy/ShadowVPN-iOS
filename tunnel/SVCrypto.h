@@ -10,10 +10,10 @@
 
 @interface SVCrypto : NSObject
 
-+ (void)setPassword: (NSString *)password;
++ (void)setPassword:(NSString *)password;
 
-+ (NSData *)encrypt: (NSData *)data;
++ (NSData *)encrypt:(NSData *)data;
 
-+ (NSData *)decrypt: (NSData *)data;
++ (NSData *)decrypt:(NSData *)data;
 
 @end
