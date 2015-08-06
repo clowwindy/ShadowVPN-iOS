@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F845435C4F67920693C75BDE"
+               BlueprintIdentifier = "924D9F02F34CA02292FB9A5B"
                BuildableName = "libPods-tunnel.a"
                BlueprintName = "Pods-tunnel"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import NetworkExtension
+
 
 class ConfigurationViewController: UITableViewController {
-    var configuration: VPNConfiguration?
+    var providerManager: NETunnelProviderManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TODO add UI
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.title = providerManager?.protocolConfiguration?.serverAddress
+        print(providerManager)
     }
 
     

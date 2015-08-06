@@ -11,11 +11,13 @@ import NetworkExtension
 
 class MainViewController: UITableViewController {
     
-    var configurations = [VPNConfiguration]()
     var vpnManagers = [NETunnelProviderManager]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "ShadowVPN"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addConfiguration")
+//        self.saveConfigurationsToSystem()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -25,14 +27,26 @@ class MainViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "configuration")
-        let configuration = self.configurations[indexPath.row]
-        cell.textLabel?.text = configuration.server
-        cell.accessoryType = .DetailDisclosureButton
+        let vpnManager = self.vpnManagers[indexPath.row]
+        cell.textLabel?.text = vpnManager.protocolConfiguration?.serverAddress
+        cell.detailTextLabel?.text = vpnManager.localizedDescription
+        // TODO filter ShadowVPN
+        if vpnManager.enabled {
+            cell.imageView?.image = UIImage(named: "checkmark")
+        } else {
+            cell.imageView?.image = UIImage(named: "checkmark_empty")
+        }
+        cell.accessoryType = .DetailButton
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let vpnManager = self.vpnManagers[indexPath.row]
+        vpnManager.enabled = true
+        vpnManager.saveToPreferencesWithCompletionHandler { (error) -> Void in
+            self.loadConfigurationFromSystem()
+        }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -40,34 +54,16 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.configurations.count
+        return self.vpnManagers.count
     }
     
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        
+        let configurationController = ConfigurationViewController(style:.Grouped)
+        configurationController.providerManager = self.vpnManagers[indexPath.row]
+        self.navigationController?.pushViewController(configurationController, animated: true)
     }
     
-    func loadConfigurationFromSystem() {
-        NETunnelProviderManager.loadAllFromPreferencesWithCompletionHandler() { newManagers, error in
-            guard let vpnManagers = newManagers else { return }
-            self.configurations.removeAll()
-            self.vpnManagers.removeAll()
-            for vpnManager in vpnManagers {
-                self.vpnManagers.append(vpnManager)
-            }
-        }
-    }
-    
-    func saveConfigurationsToSystem() {
-//        NETunnelProviderManager.loadAllFromPreferencesWithCompletionHandler() { newManagers, error in
-//            guard let vpnManagers = newManagers else { return }
-//            for vpnManager in vpnManagers {
-//                // remove existing managers
-//                vpnManager.removeFromPreferencesWithCompletionHandler({ error -> Void in
-//                })
-//            }
-//        }
-        
+    func addConfiguration() {
         let manager = NETunnelProviderManager()
         manager.loadFromPreferencesWithCompletionHandler { (error) -> Void in
             let providerProtocol = NETunnelProviderProtocol()
@@ -75,13 +71,27 @@ class MainViewController: UITableViewController {
             providerProtocol.providerConfiguration = [String: AnyObject]()
             providerProtocol.serverAddress = "10.0.1.118"
             manager.protocolConfiguration = providerProtocol
-            manager.enabled = true
             
+            let configurationController = ConfigurationViewController(style:.Grouped)
+            configurationController.providerManager = manager
+            self.navigationController?.pushViewController(configurationController, animated: true)
             manager.saveToPreferencesWithCompletionHandler({ (error) -> Void in
                 print(error)
             })
         }
-
+    }
+    
+    func loadConfigurationFromSystem() {
+        NETunnelProviderManager.loadAllFromPreferencesWithCompletionHandler() { newManagers, error in
+            guard let vpnManagers = newManagers else { return }
+            self.vpnManagers.removeAll()
+            for vpnManager in vpnManagers {
+                let configuration = VPNConfiguration()
+                configuration.server = vpnManager.protocolConfiguration?.serverAddress
+                self.vpnManagers.append(vpnManager)
+            }
+            self.tableView.reloadData()
+        }
     }
 
 }
