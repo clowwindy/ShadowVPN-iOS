@@ -11,14 +11,16 @@
 		620A5B881B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B841B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c */; };
 		620A5B891B5A9F1E00F98476 /* crypto.c in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B861B5A9F1E00F98476 /* crypto.c */; };
 		620A5B901B5AA85800F98476 /* SVCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B8F1B5AA85800F98476 /* SVCrypto.m */; };
+		626520C21B73AB890064F653 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626520C11B73AB890064F653 /* MainViewController.swift */; };
+		626520C41B73ABA10064F653 /* ConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626520C31B73ABA10064F653 /* ConfigurationViewController.swift */; };
+		6265CE4C1B73B9DB00BB48FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6265CE4A1B73B9DB00BB48FB /* Main.storyboard */; };
 		62A427511B5A3C9700BB4AD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A427501B5A3C9700BB4AD9 /* AppDelegate.swift */; };
-		62A427531B5A3C9700BB4AD9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A427521B5A3C9700BB4AD9 /* ViewController.swift */; };
-		62A427561B5A3C9700BB4AD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62A427541B5A3C9700BB4AD9 /* Main.storyboard */; };
 		62A427581B5A3C9700BB4AD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62A427571B5A3C9700BB4AD9 /* Assets.xcassets */; };
 		62A4275B1B5A3C9700BB4AD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62A427591B5A3C9700BB4AD9 /* LaunchScreen.storyboard */; };
 		62A427671B5A3E2500BB4AD9 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */; };
 		62A427721B5A3ED800BB4AD9 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */; };
 		62A427761B5A3ED800BB4AD9 /* tunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		62D48D811B7395B3003E4FEE /* VPNConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D48D801B7395B3003E4FEE /* VPNConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +57,11 @@
 		620A5B871B5A9F1E00F98476 /* crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto.h; sourceTree = "<group>"; };
 		620A5B8E1B5AA85800F98476 /* SVCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCrypto.h; sourceTree = "<group>"; };
 		620A5B8F1B5AA85800F98476 /* SVCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCrypto.m; sourceTree = "<group>"; };
+		626520C11B73AB890064F653 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		626520C31B73ABA10064F653 /* ConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationViewController.swift; sourceTree = "<group>"; };
+		6265CE4B1B73B9DB00BB48FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		62A4274D1B5A3C9700BB4AD9 /* ShadowVPN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShadowVPN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62A427501B5A3C9700BB4AD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		62A427521B5A3C9700BB4AD9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		62A427551B5A3C9700BB4AD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		62A427571B5A3C9700BB4AD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62A4275A1B5A3C9700BB4AD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		62A4275C1B5A3C9700BB4AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,6 +71,7 @@
 		62A427701B5A3ED800BB4AD9 /* tunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = tunnel.entitlements; sourceTree = "<group>"; };
 		62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		62A427731B5A3ED800BB4AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		62D48D801B7395B3003E4FEE /* VPNConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VPNConfiguration.swift; sourceTree = "<group>"; };
 		F8715C8B6D2ECED571986A72 /* Pods-tunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,13 +141,9 @@
 		62A4274F1B5A3C9700BB4AD9 /* ShadowVPN */ = {
 			isa = PBXGroup;
 			children = (
-				62A427681B5A3E2500BB4AD9 /* ShadowVPN.entitlements */,
-				62A427501B5A3C9700BB4AD9 /* AppDelegate.swift */,
-				62A427521B5A3C9700BB4AD9 /* ViewController.swift */,
-				62A427541B5A3C9700BB4AD9 /* Main.storyboard */,
-				62A427571B5A3C9700BB4AD9 /* Assets.xcassets */,
-				62A427591B5A3C9700BB4AD9 /* LaunchScreen.storyboard */,
-				62A4275C1B5A3C9700BB4AD9 /* Info.plist */,
+				62D48D7F1B73952D003E4FEE /* Misc */,
+				62D48D7E1B739528003E4FEE /* UI */,
+				62D48D7D1B73951D003E4FEE /* Model */,
 			);
 			path = ShadowVPN;
 			sourceTree = "<group>";
@@ -165,6 +165,36 @@
 				62A427701B5A3ED800BB4AD9 /* tunnel.entitlements */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		62D48D7D1B73951D003E4FEE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				62D48D801B7395B3003E4FEE /* VPNConfiguration.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		62D48D7E1B739528003E4FEE /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				6265CE4A1B73B9DB00BB48FB /* Main.storyboard */,
+				626520C11B73AB890064F653 /* MainViewController.swift */,
+				626520C31B73ABA10064F653 /* ConfigurationViewController.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		62D48D7F1B73952D003E4FEE /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				62A427681B5A3E2500BB4AD9 /* ShadowVPN.entitlements */,
+				62A427501B5A3C9700BB4AD9 /* AppDelegate.swift */,
+				62A427571B5A3C9700BB4AD9 /* Assets.xcassets */,
+				62A427591B5A3C9700BB4AD9 /* LaunchScreen.storyboard */,
+				62A4275C1B5A3C9700BB4AD9 /* Info.plist */,
+			);
+			name = Misc;
 			sourceTree = "<group>";
 		};
 		C8337FA84DBF382377A3AB97 /* Pods */ = {
@@ -272,9 +302,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6265CE4C1B73B9DB00BB48FB /* Main.storyboard in Resources */,
 				62A4275B1B5A3C9700BB4AD9 /* LaunchScreen.storyboard in Resources */,
 				62A427581B5A3C9700BB4AD9 /* Assets.xcassets in Resources */,
-				62A427561B5A3C9700BB4AD9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,8 +355,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62A427531B5A3C9700BB4AD9 /* ViewController.swift in Sources */,
 				62A427511B5A3C9700BB4AD9 /* AppDelegate.swift in Sources */,
+				62D48D811B7395B3003E4FEE /* VPNConfiguration.swift in Sources */,
+				626520C41B73ABA10064F653 /* ConfigurationViewController.swift in Sources */,
+				626520C21B73AB890064F653 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,10 +384,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		62A427541B5A3C9700BB4AD9 /* Main.storyboard */ = {
+		6265CE4A1B73B9DB00BB48FB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				62A427551B5A3C9700BB4AD9 /* Base */,
+				6265CE4B1B73B9DB00BB48FB /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

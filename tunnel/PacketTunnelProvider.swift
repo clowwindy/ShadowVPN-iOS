@@ -13,11 +13,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
   var pendingStartCompletion: (NSError? -> Void)?
 
 	override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
-    // Add code here to start the process of connecting the tunnel
 		if let serverAddress = self.protocolConfiguration.serverAddress {
-      session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: "1123"), fromEndpoint: nil)
-      self.pendingStartCompletion = completionHandler
-      self.updateNetwork()
+          session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: "1123"), fromEndpoint: nil)
+          self.pendingStartCompletion = completionHandler
+          self.updateNetwork()
 		} else {
 			completionHandler(NSError(domain:"PacketTunnelProviderDomain", code:-1, userInfo:[NSLocalizedDescriptionKey:"Configuration is missing serverAddress"]))
 		}
