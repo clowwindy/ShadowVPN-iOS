@@ -30,7 +30,7 @@ class MainViewController: UITableViewController {
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "configuration")
         let vpnManager = self.vpnManagers[indexPath.row]
         cell.textLabel?.text = vpnManager.protocolConfiguration?.serverAddress
-        cell.detailTextLabel?.text = vpnManager.localizedDescription
+        cell.detailTextLabel?.text = (vpnManager.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!["description"] as? String
         if vpnManager.enabled {
             cell.imageView?.image = UIImage(named: "checkmark")
         } else {
