@@ -12,8 +12,9 @@
 
 + (void)setPassword:(NSString *)password;
 
-+ (NSData *)encrypt:(NSData *)data;
++ (NSData *)encryptWithData:(NSData *)data userToken:(NSData *)userToken;
 
-+ (NSData *)decrypt:(NSData *)data;
+// when token is enabled, skip header
++ (NSData *)decryptWithData:(NSData *)data userToken:(NSData *)userToken;
 
 @end
