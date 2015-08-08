@@ -23,9 +23,6 @@ class ConfigurationViewController: UITableViewController {
         self.title = providerManager?.protocolConfiguration?.serverAddress
         let conf:NETunnelProviderProtocol = self.providerManager?.protocolConfiguration as! NETunnelProviderProtocol
         
-        if conf.providerConfiguration!["ShadowVPN"] == nil {
-            conf.providerConfiguration!["ShadowVPN"] = [String: AnyObject]()
-        }
         self.configuration = conf.providerConfiguration!
     }
     
@@ -36,6 +33,7 @@ class ConfigurationViewController: UITableViewController {
         }
         (self.providerManager?.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration = self.configuration
         self.providerManager?.protocolConfiguration?.serverAddress = self.configuration["server"] as? String
+        self.providerManager?.localizedDescription = self.configuration["server"] as? String
         
         self.providerManager?.saveToPreferencesWithCompletionHandler { (error) -> Void in
         }
