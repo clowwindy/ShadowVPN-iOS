@@ -80,6 +80,7 @@ class ConfigurationViewController: UITableViewController {
             case 2:
                 cell.textLabel?.text = "Port"
                 cell.textField.placeholder = "Server Port"
+                cell.textField.text = "1123"
                 bindData(cell.textField, property: "port")
             case 3:
                 cell.textLabel?.text = "Password"
@@ -90,10 +91,21 @@ class ConfigurationViewController: UITableViewController {
                 cell.textField.placeholder = "Optional"
                 bindData(cell.textField, property: "usertoken")
             case 5:
+                cell.textLabel?.text = "IP"
+                cell.textField.placeholder = "Required"
+                cell.textField.text = "10.7.0.2"
+                bindData(cell.textField, property: "ip")
+            case 6:
+                cell.textLabel?.text = "Subnet"
+                cell.textField.placeholder = "Required"
+                cell.textField.text = "255.255.255.0"
+                bindData(cell.textField, property: "subnet")
+            case 7:
                 cell.textLabel?.text = "DNS"
                 cell.textField.placeholder = "DNS Server Address"
+                cell.textField.text = "8.8.8.8"
                 bindData(cell.textField, property: "dns")
-            case 6:
+            case 8:
                 cell.textLabel?.text = "CHNRoutes"
                 cell.textField.placeholder = "TODO"
                 bindData(cell.textField, property: "chnroutes")
