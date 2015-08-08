@@ -72,6 +72,7 @@ class ConfigurationViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             let cell = ConfigurationTextCell()
+            cell.selectionStyle = .None
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "Description"
@@ -121,9 +122,20 @@ class ConfigurationViewController: UITableViewController {
         case 1:
             let cell = UITableViewCell()
             cell.textLabel?.text = "Delete This Configuration"
+            cell.textLabel?.textColor = UIColor.redColor()
             return cell
         default:
             return UITableViewCell()
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if (indexPath.section == 1) {
+            // TODO alert
+            self.providerManager?.removeFromPreferencesWithCompletionHandler({ (error) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            })
         }
     }
     
