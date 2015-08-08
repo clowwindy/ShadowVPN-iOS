@@ -21,7 +21,8 @@
 		62A427671B5A3E2500BB4AD9 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */; };
 		62A427721B5A3ED800BB4AD9 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */; };
 		62A427761B5A3ED800BB4AD9 /* tunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		62D48D811B7395B3003E4FEE /* VPNConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D48D801B7395B3003E4FEE /* VPNConfiguration.swift */; };
+		62D8D2661B761EF8009FA6FE /* VPNConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D2651B761EF8009FA6FE /* VPNConfiguration.m */; };
+		62D8D2671B761EF8009FA6FE /* VPNConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D2651B761EF8009FA6FE /* VPNConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +74,10 @@
 		62A427701B5A3ED800BB4AD9 /* tunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = tunnel.entitlements; sourceTree = "<group>"; };
 		62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		62A427731B5A3ED800BB4AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		62D48D801B7395B3003E4FEE /* VPNConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VPNConfiguration.swift; sourceTree = "<group>"; };
+		62D8D2611B761D7A009FA6FE /* model.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = model.json; path = Shared/model.json; sourceTree = "<group>"; };
+		62D8D2631B761EF8009FA6FE /* ShadowVPN-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShadowVPN-Bridging-Header.h"; sourceTree = "<group>"; };
+		62D8D2641B761EF8009FA6FE /* VPNConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VPNConfiguration.h; path = Shared/VPNConfiguration.h; sourceTree = "<group>"; };
+		62D8D2651B761EF8009FA6FE /* VPNConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VPNConfiguration.m; path = Shared/VPNConfiguration.m; sourceTree = "<group>"; };
 		F8715C8B6D2ECED571986A72 /* Pods-tunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +104,7 @@
 		486E76D16A13A84BC2514505 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */,
 				5FC75A2A2AB75447D9D64CB9 /* libPods-tunnel.a */,
 			);
 			name = Frameworks;
@@ -131,7 +136,7 @@
 		62A427441B5A3C9700BB4AD9 = {
 			isa = PBXGroup;
 			children = (
-				62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */,
+				62D8D25C1B761BFE009FA6FE /* Shared */,
 				62A4274F1B5A3C9700BB4AD9 /* ShadowVPN */,
 				62A4276E1B5A3ED800BB4AD9 /* tunnel */,
 				62A4274E1B5A3C9700BB4AD9 /* Products */,
@@ -155,7 +160,6 @@
 				625E05021B73D3B70041A9D6 /* Resources */,
 				62D48D7F1B73952D003E4FEE /* Misc */,
 				62D48D7E1B739528003E4FEE /* UI */,
-				62D48D7D1B73951D003E4FEE /* Model */,
 			);
 			path = ShadowVPN;
 			sourceTree = "<group>";
@@ -179,14 +183,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		62D48D7D1B73951D003E4FEE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				62D48D801B7395B3003E4FEE /* VPNConfiguration.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		62D48D7E1B739528003E4FEE /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +202,17 @@
 				62A4275C1B5A3C9700BB4AD9 /* Info.plist */,
 			);
 			name = Misc;
+			sourceTree = "<group>";
+		};
+		62D8D25C1B761BFE009FA6FE /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				62D8D2641B761EF8009FA6FE /* VPNConfiguration.h */,
+				62D8D2651B761EF8009FA6FE /* VPNConfiguration.m */,
+				62D8D2611B761D7A009FA6FE /* model.json */,
+				62D8D2631B761EF8009FA6FE /* ShadowVPN-Bridging-Header.h */,
+			);
+			name = Shared;
 			sourceTree = "<group>";
 		};
 		C8337FA84DBF382377A3AB97 /* Pods */ = {
@@ -368,7 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62A427511B5A3C9700BB4AD9 /* AppDelegate.swift in Sources */,
-				62D48D811B7395B3003E4FEE /* VPNConfiguration.swift in Sources */,
+				62D8D2661B761EF8009FA6FE /* VPNConfiguration.m in Sources */,
 				626520C41B73ABA10064F653 /* ConfigurationViewController.swift in Sources */,
 				626520C21B73AB890064F653 /* MainViewController.swift in Sources */,
 			);
@@ -378,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62D8D2671B761EF8009FA6FE /* VPNConfiguration.m in Sources */,
 				62A427721B5A3ED800BB4AD9 /* PacketTunnelProvider.swift in Sources */,
 				620A5B891B5A9F1E00F98476 /* crypto.c in Sources */,
 				620A5B881B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c in Sources */,
@@ -494,6 +502,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShadowVPN/ShadowVPN.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -503,6 +512,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = clowwindy.ShadowVPN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShadowVPN-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -510,6 +521,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ShadowVPN/ShadowVPN.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -519,6 +531,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = clowwindy.ShadowVPN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShadowVPN-Bridging-Header.h";
 			};
 			name = Release;
 		};

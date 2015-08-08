@@ -1,0 +1,10 @@
+{
+    "__class__": "VPNConfiguration",
+    "server": "",
+    "port": 1123,
+    "password": "",
+    "usertoken": "",
+    "dns": "",
+    "chnroutes": false,
+    "conf_description": ""
+}

@@ -69,7 +69,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
       var decryptedPackets = [NSData]()
       for packet in packets {
         // currently IPv4 only
-        decryptedPackets.append(SVCrypto.decryptWithData(packet, userTokenEnabled: false))
+        decryptedPackets.append(SVCrypto.decryptWithData(packet, userToken: nil))
         protocols.append(2)
       }
       self.packetFlow.writePackets(decryptedPackets, withProtocols: protocols)

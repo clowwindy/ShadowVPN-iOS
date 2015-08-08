@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E294BEC93B2B1CC44C3E31F1"
+               BlueprintIdentifier = "A4AA26146F746B96166EBE8C"
                BuildableName = "libPods-tunnel-libsodium.a"
                BlueprintName = "Pods-tunnel-libsodium"
                ReferencedContainer = "container:Pods.xcodeproj">
