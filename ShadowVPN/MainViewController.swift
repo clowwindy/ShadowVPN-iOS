@@ -17,12 +17,13 @@ class MainViewController: UITableViewController {
         super.viewDidLoad()
         self.title = "ShadowVPN"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addConfiguration")
-//        self.saveConfigurationsToSystem()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        loadConfigurationFromSystem()
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.loadConfigurationFromSystem()
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -30,7 +31,6 @@ class MainViewController: UITableViewController {
         let vpnManager = self.vpnManagers[indexPath.row]
         cell.textLabel?.text = vpnManager.protocolConfiguration?.serverAddress
         cell.detailTextLabel?.text = vpnManager.localizedDescription
-        // TODO filter ShadowVPN
         if vpnManager.enabled {
             cell.imageView?.image = UIImage(named: "checkmark")
         } else {
@@ -83,11 +83,11 @@ class MainViewController: UITableViewController {
     
     func loadConfigurationFromSystem() {
         NETunnelProviderManager.loadAllFromPreferencesWithCompletionHandler() { newManagers, error in
+            print(error)
             guard let vpnManagers = newManagers else { return }
             self.vpnManagers.removeAll()
             for vpnManager in vpnManagers {
-                let configuration = VPNConfiguration()
-                configuration.server = vpnManager.protocolConfiguration?.serverAddress
+                // TODO filter ShadowVPN
                 self.vpnManagers.append(vpnManager)
             }
             self.tableView.reloadData()
