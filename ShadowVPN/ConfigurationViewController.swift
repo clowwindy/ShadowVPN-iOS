@@ -17,6 +17,7 @@ class ConfigurationViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "save")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -28,6 +29,10 @@ class ConfigurationViewController: UITableViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    func save() {
+        // TODO validate settings
         for (k, v) in self.bindMap {
             self.configuration[k] = v.text
         }
@@ -36,6 +41,7 @@ class ConfigurationViewController: UITableViewController {
         self.providerManager?.localizedDescription = self.configuration["server"] as? String
         
         self.providerManager?.saveToPreferencesWithCompletionHandler { (error) -> Void in
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     

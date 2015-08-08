@@ -21,9 +21,8 @@ class MainViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.loadConfigurationFromSystem()
-        }
+        self.loadConfigurationFromSystem()
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -69,7 +68,6 @@ class MainViewController: UITableViewController {
             let providerProtocol = NETunnelProviderProtocol()
             providerProtocol.providerBundleIdentifier = "clowwindy.ShadowVPN.tunnel"
             providerProtocol.providerConfiguration = [String: AnyObject]()
-            providerProtocol.serverAddress = "10.0.1.118"
             manager.protocolConfiguration = providerProtocol
             
             let configurationController = ConfigurationViewController(style:.Grouped)
