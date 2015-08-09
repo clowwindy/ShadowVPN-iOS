@@ -15,7 +15,7 @@ class ConfigurationTextCell: UITableViewCell {
     
     init() {
         super.init(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
-        self.addSubview(textField)
+        self.contentView.addSubview(textField)
     }
     
     required init?(coder aDecoder: NSCoder) {
