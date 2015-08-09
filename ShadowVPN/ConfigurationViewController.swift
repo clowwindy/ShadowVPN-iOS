@@ -94,6 +94,7 @@ class ConfigurationViewController: UITableViewController {
             case 4:
                 cell.textLabel?.text = "User Token"
                 cell.textField.placeholder = "Optional"
+                cell.textField.text = "7e335d67f1dc2c01"
                 bindData(cell.textField, property: "usertoken")
             case 5:
                 cell.textLabel?.text = "IP"
