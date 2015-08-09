@@ -13,6 +13,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var conf = [String: AnyObject]()
     var pendingStartCompletion: (NSError? -> Void)?
     var userToken: NSData?
+    var testUDP: TestUDP?
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
         NSLog("test")
@@ -28,6 +29,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                     if userTokenString.characters.count == 16 {
                         userToken = NSData.fromHexString(userTokenString)
                         NSLog("test4")
+                        testUDP = TestUDP()
                     }
                 }
                 self.updateNetwork()
@@ -46,7 +48,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         NSLog("test5")
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: self.protocolConfiguration.serverAddress!)
         newSettings.IPv4Settings = NEIPv4Settings(addresses: [conf["ip"] as! String], subnetMasks: [conf["subnet"] as! String])
-        newSettings.IPv4Settings!.includedRoutes = [NEIPv4Route.defaultRoute()]
+        RouteManager(route: conf["route"] as? String, IPv4Settings: newSettings.IPv4Settings!)
         if conf["mtu"] != nil {
             newSettings.MTU = Int(conf["mtu"] as! String)
         } else {
