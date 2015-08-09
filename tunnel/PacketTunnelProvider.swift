@@ -72,6 +72,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 NSLog("%@", String(error))
                 NSLog("VPN started")
                 completionHandler(error)
+                if error != nil {
+                    // simply kill the extension process
+                    exit(0)
+                }
             }
         }
     }

@@ -14,6 +14,7 @@ class MainViewController: UITableViewController {
     var vpnManagers = [NETunnelProviderManager]()
     var currentVPNManager: NETunnelProviderManager?
     var vpnStatusSwitch = UISwitch()
+    var vpnStatusLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,8 @@ class MainViewController: UITableViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("VPNStatusDidChange:"), name: NEVPNStatusDidChangeNotification, object: nil)
         vpnStatusSwitch.addTarget(self, action: "vpnStatusSwitchValueDidChange:", forControlEvents: .ValueChanged)
+        vpnStatusLabel.textAlignment = .Right
+        vpnStatusLabel.textColor = UIColor.grayColor()
     }
     
     deinit {
@@ -31,14 +34,11 @@ class MainViewController: UITableViewController {
     func vpnStatusSwitchValueDidChange(sender: UISwitch) {
         do {
             if vpnManagers.count > 0 {
-                for vpnManager: NETunnelProviderManager in vpnManagers {
-                    if vpnManager.enabled {
-                        if sender.on {
-                            try vpnManager.connection.startVPNTunnel()
-                        } else {
-                            vpnManager.connection.stopVPNTunnel()
-                        }
-                        break
+                if let currentVPNManager = self.currentVPNManager {
+                    if sender.on {
+                        try currentVPNManager.connection.startVPNTunnel()
+                    } else {
+                        currentVPNManager.connection.stopVPNTunnel()
                     }
                 }
             }
@@ -56,18 +56,22 @@ class MainViewController: UITableViewController {
             case .Connecting:
                 on = true
                 enabled = false
+                vpnStatusLabel.text = "Connecting..."
                 break
             case .Connected:
                 on = true
                 enabled = true
+                vpnStatusLabel.text = "Connected"
                 break
             case .Disconnecting:
                 on = false
                 enabled = false
+                vpnStatusLabel.text = "Disconnecting..."
                 break
             case .Disconnected:
                 on = false
                 enabled = true
+                vpnStatusLabel.text = "Not Connected"
                 break
             default:
                 on = false
@@ -91,7 +95,12 @@ class MainViewController: UITableViewController {
             let cell = UITableViewCell()
             cell.selectionStyle = .None
             cell.textLabel?.text = "Status"
-            cell.accessoryView = self.vpnStatusSwitch
+            let accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 201, height: vpnStatusSwitch.frame.height))
+            vpnStatusLabel.frame = CGRect(x: 0, y: 0, width: 140, height: vpnStatusSwitch.frame.height)
+            vpnStatusSwitch.frame = CGRect(x: 150, y: 0, width: 51, height: vpnStatusSwitch.frame.height)
+            accessoryView.addSubview(vpnStatusLabel)
+            accessoryView.addSubview(vpnStatusSwitch)
+            cell.accessoryView = accessoryView
             return cell
         } else {
             let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "configuration")
@@ -99,7 +108,6 @@ class MainViewController: UITableViewController {
             cell.textLabel?.text = vpnManager.protocolConfiguration?.serverAddress
             cell.detailTextLabel?.text = (vpnManager.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!["description"] as? String
             if vpnManager.enabled {
-                currentVPNManager = vpnManager
                 cell.imageView?.image = UIImage(named: "checkmark")
             } else {
                 cell.imageView?.image = UIImage(named: "checkmark_empty")
@@ -162,9 +170,13 @@ class MainViewController: UITableViewController {
             self.vpnManagers.removeAll()
             for vpnManager in vpnManagers {
                 // TODO filter ShadowVPN
+                if vpnManager.enabled {
+                    self.currentVPNManager = vpnManager
+                }
                 self.vpnManagers.append(vpnManager)
             }
             self.tableView.reloadData()
+            self.VPNStatusDidChange(nil)
         }
     }
 
