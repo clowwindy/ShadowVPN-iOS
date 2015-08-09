@@ -175,6 +175,7 @@ class MainViewController: UITableViewController {
                 }
                 self.vpnManagers.append(vpnManager)
             }
+            self.vpnStatusSwitch.enabled = vpnManagers.count > 0
             self.tableView.reloadData()
             self.VPNStatusDidChange(nil)
         }
