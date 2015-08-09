@@ -25,6 +25,7 @@
 		62D8D26B1B771B63009FA6FE /* NSData+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26A1B771B63009FA6FE /* NSData+Hex.swift */; };
 		62D8D26E1B77275B009FA6FE /* TestUDP.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26D1B77275B009FA6FE /* TestUDP.m */; };
 		62D8D2701B772C5A009FA6FE /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26F1B772C5A009FA6FE /* RouteManager.swift */; };
+		62D8D2981B77342F009FA6FE /* chinadns.c in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D2971B77342F009FA6FE /* chinadns.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		62D8D26C1B77275B009FA6FE /* TestUDP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUDP.h; sourceTree = "<group>"; };
 		62D8D26D1B77275B009FA6FE /* TestUDP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUDP.m; sourceTree = "<group>"; };
 		62D8D26F1B772C5A009FA6FE /* RouteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
+		62D8D2971B77342F009FA6FE /* chinadns.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chinadns.c; sourceTree = "<group>"; };
+		62D8D2991B77345C009FA6FE /* chinadns.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chinadns.h; sourceTree = "<group>"; };
 		F8715C8B6D2ECED571986A72 /* Pods-tunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,9 +175,10 @@
 		62A4276E1B5A3ED800BB4AD9 /* tunnel */ = {
 			isa = PBXGroup;
 			children = (
+				62D8D2961B7733ED009FA6FE /* Route */,
+				62D8D2951B7733EA009FA6FE /* VPN */,
+				62D8D2941B7733E2009FA6FE /* DNS */,
 				620A5B831B5A9F0E00F98476 /* Crypto */,
-				62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */,
-				62D8D26F1B772C5A009FA6FE /* RouteManager.swift */,
 				62A427731B5A3ED800BB4AD9 /* Info.plist */,
 				62A4276F1B5A3ED800BB4AD9 /* Supporting Files */,
 			);
@@ -209,6 +213,31 @@
 				62A4275C1B5A3C9700BB4AD9 /* Info.plist */,
 			);
 			name = Misc;
+			sourceTree = "<group>";
+		};
+		62D8D2941B7733E2009FA6FE /* DNS */ = {
+			isa = PBXGroup;
+			children = (
+				62D8D2971B77342F009FA6FE /* chinadns.c */,
+				62D8D2991B77345C009FA6FE /* chinadns.h */,
+			);
+			name = DNS;
+			sourceTree = "<group>";
+		};
+		62D8D2951B7733EA009FA6FE /* VPN */ = {
+			isa = PBXGroup;
+			children = (
+				62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */,
+			);
+			name = VPN;
+			sourceTree = "<group>";
+		};
+		62D8D2961B7733ED009FA6FE /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				62D8D26F1B772C5A009FA6FE /* RouteManager.swift */,
+			);
+			name = Route;
 			sourceTree = "<group>";
 		};
 		C8337FA84DBF382377A3AB97 /* Pods */ = {
@@ -384,6 +413,7 @@
 				62A427721B5A3ED800BB4AD9 /* PacketTunnelProvider.swift in Sources */,
 				620A5B891B5A9F1E00F98476 /* crypto.c in Sources */,
 				620A5B881B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c in Sources */,
+				62D8D2981B77342F009FA6FE /* chinadns.c in Sources */,
 				62D8D26E1B77275B009FA6FE /* TestUDP.m in Sources */,
 				620A5B901B5AA85800F98476 /* SVCrypto.m in Sources */,
 				62D8D2701B772C5A009FA6FE /* RouteManager.swift in Sources */,
