@@ -36,7 +36,6 @@
     int argc = 0;
     char *(argv)[MAX_ARG];
     
-    
     char *iplistPath = strdup([[[NSBundle mainBundle] pathForResource:@"iplist" ofType:@"txt"] cStringUsingEncoding:NSUTF8StringEncoding]);
     char *chnroutesPath = strdup([[[NSBundle mainBundle] pathForResource:@"chnroutes" ofType:@"txt"] cStringUsingEncoding:NSUTF8StringEncoding]);
     NSLog(@"%s", iplistPath);
