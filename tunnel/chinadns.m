@@ -512,6 +512,11 @@ static int dns_init_sockets() {
     VERR("%s:%s:%s\n", gai_strerror(r), listen_addr, listen_port);
     return -1;
   }
+  int yes = 1;
+  if (0 != setsockopt(local_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int))) {
+    perror("setsockopt");
+    return -1;
+  }
   if (0 != bind(local_sock, addr_ip->ai_addr, addr_ip->ai_addrlen)) {
     ERR("bind");
     VERR("Can't bind address %s:%s\n", listen_addr, listen_port);
