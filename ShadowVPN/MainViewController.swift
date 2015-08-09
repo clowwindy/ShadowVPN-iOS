@@ -12,11 +12,72 @@ import NetworkExtension
 class MainViewController: UITableViewController {
     
     var vpnManagers = [NETunnelProviderManager]()
+    var currentVPNManager: NETunnelProviderManager?
+    var vpnStatusSwitch = UISwitch()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "ShadowVPN"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "addConfiguration")
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("VPNStatusDidChange:"), name: NEVPNStatusDidChangeNotification, object: nil)
+        vpnStatusSwitch.addTarget(self, action: "vpnStatusSwitchValueDidChange:", forControlEvents: .ValueChanged)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NEVPNStatusDidChangeNotification, object: nil)
+    }
+    
+    func vpnStatusSwitchValueDidChange(sender: UISwitch) {
+        do {
+            if vpnManagers.count > 0 {
+                for vpnManager: NETunnelProviderManager in vpnManagers {
+                    if vpnManager.enabled {
+                        if sender.on {
+                            try vpnManager.connection.startVPNTunnel()
+                        } else {
+                            vpnManager.connection.stopVPNTunnel()
+                        }
+                        break
+                    }
+                }
+            }
+        } catch {
+            NSLog("%@", String(error))
+        }
+    }
+
+    func VPNStatusDidChange(notification: NSNotification?) {
+        var on = false
+        var enabled = false
+        if let currentVPNManager = self.currentVPNManager {
+            let status = currentVPNManager.connection.status
+            switch status {
+            case .Connecting:
+                on = true
+                enabled = false
+                break
+            case .Connected:
+                on = true
+                enabled = true
+                break
+            case .Disconnecting:
+                on = false
+                enabled = false
+                break
+            case .Disconnected:
+                on = false
+                enabled = true
+                break
+            default:
+                on = false
+                enabled = true
+                break
+            }
+            vpnStatusSwitch.on = on
+            vpnStatusSwitch.enabled = enabled
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = !enabled
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -26,34 +87,49 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "configuration")
-        let vpnManager = self.vpnManagers[indexPath.row]
-        cell.textLabel?.text = vpnManager.protocolConfiguration?.serverAddress
-        cell.detailTextLabel?.text = (vpnManager.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!["description"] as? String
-        if vpnManager.enabled {
-            cell.imageView?.image = UIImage(named: "checkmark")
+        if indexPath.section == 0 {
+            let cell = UITableViewCell()
+            cell.selectionStyle = .None
+            cell.textLabel?.text = "Status"
+            cell.accessoryView = self.vpnStatusSwitch
+            return cell
         } else {
-            cell.imageView?.image = UIImage(named: "checkmark_empty")
+            let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "configuration")
+            let vpnManager = self.vpnManagers[indexPath.row]
+            cell.textLabel?.text = vpnManager.protocolConfiguration?.serverAddress
+            cell.detailTextLabel?.text = (vpnManager.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!["description"] as? String
+            if vpnManager.enabled {
+                currentVPNManager = vpnManager
+                cell.imageView?.image = UIImage(named: "checkmark")
+            } else {
+                cell.imageView?.image = UIImage(named: "checkmark_empty")
+            }
+            cell.accessoryType = .DetailButton
+            return cell
         }
-        cell.accessoryType = .DetailButton
-        return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let vpnManager = self.vpnManagers[indexPath.row]
-        vpnManager.enabled = true
-        vpnManager.saveToPreferencesWithCompletionHandler { (error) -> Void in
-            self.loadConfigurationFromSystem()
+        if indexPath.section == 1 {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            let vpnManager = self.vpnManagers[indexPath.row]
+            vpnManager.enabled = true
+            vpnManager.saveToPreferencesWithCompletionHandler { (error) -> Void in
+                self.loadConfigurationFromSystem()
+            }
         }
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.vpnManagers.count
+        if section == 0 {
+            return 1
+        } else {
+            return self.vpnManagers.count
+        }
     }
     
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {

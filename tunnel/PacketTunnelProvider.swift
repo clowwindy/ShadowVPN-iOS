@@ -113,6 +113,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         session?.cancel()
         completionHandler()
         super.stopTunnelWithReason(reason, completionHandler: completionHandler)
+        // simply kill the extension process
+        exit(0)
     }
     
     override func handleAppMessage(messageData: NSData, completionHandler: ((NSData?) -> Void)?) {
