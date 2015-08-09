@@ -32,6 +32,16 @@
 		62D8D2A21B774A2F009FA6FE /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D8D2A11B774A2F009FA6FE /* libresolv.tbd */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6228E95B1B775DDB00581B0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 62A427451B5A3C9700BB4AD9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62A4276C1B5A3ED800BB4AD9;
+			remoteInfo = tunnel;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		62A4277A1B5A3ED800BB4AD9 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -269,6 +279,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				6228E95C1B775DDB00581B0F /* PBXTargetDependency */,
 			);
 			name = ShadowVPN;
 			productName = ShadowVPN;
@@ -380,7 +391,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tunnel/Pods-tunnel-resources.sh\"\n";
+			shellScript = "#\"${SRCROOT}/Pods/Target Support Files/Pods-tunnel/Pods-tunnel-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E4EB07B6CDD86D9D38054741 /* Check Pods Manifest.lock */ = {
@@ -429,6 +440,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6228E95C1B775DDB00581B0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62A4276C1B5A3ED800BB4AD9 /* tunnel */;
+			targetProxy = 6228E95B1B775DDB00581B0F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		62A427591B5A3C9700BB4AD9 /* LaunchScreen.storyboard */ = {
