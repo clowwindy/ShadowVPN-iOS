@@ -75,6 +75,7 @@ class RouteManager: NSObject {
         } catch {
             NSLog("$@", String(error))
         }
-        IPv4Settings.includedRoutes = routes
+        IPv4Settings.includedRoutes = [NEIPv4Route.defaultRoute()]
+        IPv4Settings.excludedRoutes = routes
     }
 }

@@ -27,6 +27,9 @@
 		62D8D2701B772C5A009FA6FE /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26F1B772C5A009FA6FE /* RouteManager.swift */; };
 		62D8D2981B77342F009FA6FE /* chinadns.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D2971B77342F009FA6FE /* chinadns.m */; };
 		62D8D29B1B773622009FA6FE /* chnroutes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 62D8D29A1B773622009FA6FE /* chnroutes.txt */; };
+		62D8D29E1B77433E009FA6FE /* ChinaDNSRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D29D1B77433E009FA6FE /* ChinaDNSRunner.m */; };
+		62D8D2A01B7748CA009FA6FE /* iplist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 62D8D29F1B7748CA009FA6FE /* iplist.txt */; };
+		62D8D2A21B774A2F009FA6FE /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D8D2A11B774A2F009FA6FE /* libresolv.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +89,10 @@
 		62D8D2971B77342F009FA6FE /* chinadns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chinadns.m; sourceTree = "<group>"; };
 		62D8D2991B77345C009FA6FE /* chinadns.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chinadns.h; sourceTree = "<group>"; };
 		62D8D29A1B773622009FA6FE /* chnroutes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chnroutes.txt; sourceTree = "<group>"; };
+		62D8D29C1B77433E009FA6FE /* ChinaDNSRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChinaDNSRunner.h; sourceTree = "<group>"; };
+		62D8D29D1B77433E009FA6FE /* ChinaDNSRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChinaDNSRunner.m; sourceTree = "<group>"; };
+		62D8D29F1B7748CA009FA6FE /* iplist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iplist.txt; sourceTree = "<group>"; };
+		62D8D2A11B774A2F009FA6FE /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		F8715C8B6D2ECED571986A72 /* Pods-tunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62D8D2A21B774A2F009FA6FE /* libresolv.tbd in Frameworks */,
 				5EA8D9810A0C84460A50A3DA /* libPods-tunnel.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +120,7 @@
 		486E76D16A13A84BC2514505 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62D8D2A11B774A2F009FA6FE /* libresolv.tbd */,
 				62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */,
 				5FC75A2A2AB75447D9D64CB9 /* libPods-tunnel.a */,
 			);
@@ -121,7 +130,6 @@
 		620A5B831B5A9F0E00F98476 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
-				620A5B821B5A9E3100F98476 /* tunnel-Bridging-Header.h */,
 				620A5B841B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c */,
 				620A5B851B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.h */,
 				620A5B861B5A9F1E00F98476 /* crypto.c */,
@@ -190,6 +198,7 @@
 		62A4276F1B5A3ED800BB4AD9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				620A5B821B5A9E3100F98476 /* tunnel-Bridging-Header.h */,
 				62A427701B5A3ED800BB4AD9 /* tunnel.entitlements */,
 			);
 			name = "Supporting Files";
@@ -220,8 +229,11 @@
 		62D8D2941B7733E2009FA6FE /* DNS */ = {
 			isa = PBXGroup;
 			children = (
+				62D8D29F1B7748CA009FA6FE /* iplist.txt */,
 				62D8D2991B77345C009FA6FE /* chinadns.h */,
 				62D8D2971B77342F009FA6FE /* chinadns.m */,
+				62D8D29C1B77433E009FA6FE /* ChinaDNSRunner.h */,
+				62D8D29D1B77433E009FA6FE /* ChinaDNSRunner.m */,
 			);
 			name = DNS;
 			sourceTree = "<group>";
@@ -360,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				62D8D29B1B773622009FA6FE /* chnroutes.txt in Resources */,
+				62D8D2A01B7748CA009FA6FE /* iplist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +429,7 @@
 			files = (
 				62A427721B5A3ED800BB4AD9 /* PacketTunnelProvider.swift in Sources */,
 				620A5B891B5A9F1E00F98476 /* crypto.c in Sources */,
+				62D8D29E1B77433E009FA6FE /* ChinaDNSRunner.m in Sources */,
 				620A5B881B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c in Sources */,
 				62D8D2981B77342F009FA6FE /* chinadns.m in Sources */,
 				62D8D26E1B77275B009FA6FE /* TestUDP.m in Sources */,

@@ -10,6 +10,6 @@
 #define tunnel_Bridging_Header_h
 
 #import "SVCrypto.h"
-#import "TestUDP.h"
+#import "ChinaDNSRunner.h"
 
 #endif /* tunnel_Bridging_Header_h */

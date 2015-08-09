@@ -18,6 +18,8 @@
 #ifndef chinadns_h
 #define chinadns_h
 
+#import <Foundation/Foundation.h>
+
 // a hack
 // caller set it to 1 when Reachability changes
 // will be reset to 0 when the changes is handled by ChinaDNS

@@ -13,7 +13,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var conf = [String: AnyObject]()
     var pendingStartCompletion: (NSError? -> Void)?
     var userToken: NSData?
-    var testUDP: TestUDP?
+    var chinaDNS: ChinaDNSRunner?
     var routeManager: RouteManager?
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
@@ -30,7 +30,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                     if userTokenString.characters.count == 16 {
                         userToken = NSData.fromHexString(userTokenString)
                         NSLog("test4")
-                        testUDP = TestUDP()
+                        chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
                     }
                 }
                 self.updateNetwork()
@@ -55,7 +55,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         } else {
             newSettings.MTU = 1432
         }
-        newSettings.DNSSettings = NEDNSSettings(servers: [conf["dns"] as! String])
+//        newSettings.DNSSettings = NEDNSSettings(servers: [conf["dns"] as! String])
+        newSettings.DNSSettings = NEDNSSettings(servers: ["127.0.0.1"])
         NSLog("test6")
         SVCrypto.setPassword(conf["password"] as! String)
         NSLog("test7")

@@ -15,6 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#import "chinadns.h"
+
 #include <fcntl.h>
 #include <netdb.h>
 #include <resolv.h>
@@ -132,46 +134,14 @@ static int remote_sock;
 
 static void usage(void);
 
-#define __LOG(o, t, v, s...) do {                                   \
-  time_t now;                                                       \
-  time(&now);                                                       \
-  char *time_str = ctime(&now);                                     \
-  time_str[strlen(time_str) - 1] = '\0';                            \
-  if (t == 0) {                                                     \
-    if (stdout != o || verbose) {                                   \
-      fprintf(o, "%s ", time_str);                                  \
-      fprintf(o, s);                                                \
-      fflush(o);                                                    \
-    }                                                               \
-  } else if (t == 1) {                                              \
-    fprintf(o, "%s %s:%d ", time_str, __FILE__, __LINE__);          \
-    perror(v);                                                      \
-  }                                                                 \
-} while (0)
-
-#define LOG(s...) __LOG(stdout, 0, "_", s)
-#define ERR(s) __LOG(stderr, 1, s, "_")
-#define VERR(s...) __LOG(stderr, 0, "_", s)
-
-#ifdef DEBUG
-#define DLOG(s...) LOG(s)
-void __gcov_flush(void);
-static void gcov_handler(int signum)
-{
-  __gcov_flush();
-  exit(1);
-}
-#else
+#define LOG(s...) NSLog(@s)
 #define DLOG(s...)
-#endif
+#define ERR(s) NSLog(@s)
+#define VERR(s...) NSLog(@s)
 
 int chinadns_main(int argc, char **argv) {
   fd_set readset, errorset;
   int max_fd;
-
-#ifdef DEBUG
-  signal(SIGTERM, gcov_handler);
-#endif
 
   memset(&id_addr_queue, 0, sizeof(id_addr_queue));
   if (0 != parse_args(argc, argv))
@@ -242,6 +212,7 @@ static int parse_args(int argc, char **argv) {
   listen_addr = strdup(default_listen_addr);
   listen_port = strdup(default_listen_port);
   while ((ch = getopt(argc, argv, "hb:p:s:l:c:y:dmvV")) != -1) {
+      LOG("%c", ch);
     switch (ch) {
       case 'h':
         usage();
@@ -274,7 +245,7 @@ static int parse_args(int argc, char **argv) {
         verbose = 1;
         break;
       case 'V':
-//        printf("ChinaDNS %s\n", PACKAGE_VERSION);
+//        LOG("ChinaDNS %s\n", PACKAGE_VERSION);
         exit(0);
       default:
         usage();
@@ -673,7 +644,7 @@ static void dns_handle_remote() {
       r = should_filter_query(msg, ((struct sockaddr_in *)src_addr)->sin_addr);
       if (r == 0) {
         if (verbose)
-          printf("pass\n");
+          LOG("pass\n");
         if (-1 == sendto(local_sock, global_buf, len, 0, id_addr->addr,
                          id_addr->addrlen))
           ERR("sendto");
@@ -681,14 +652,14 @@ static void dns_handle_remote() {
         schedule_delay(query_id, global_buf, len, id_addr->addr,
                        id_addr->addrlen);
         if (verbose)
-          printf("delay\n");
+          LOG("delay\n");
       } else {
         if (verbose)
-          printf("filter\n");
+          LOG("filter\n");
       }
     } else {
       if (verbose)
-        printf("skip\n");
+        LOG("skip\n");
     }
     free(src_addr);
   }
@@ -774,7 +745,7 @@ static int should_filter_query(ns_msg msg, struct in_addr dns_addr) {
     rd = ns_rr_rdata(rr);
     if (type == ns_t_a) {
       if (verbose)
-        printf("%s, ", inet_ntoa(*(struct in_addr *)rd));
+        LOG("%s, ", inet_ntoa(*(struct in_addr *)rd));
       if (!compression) {
         r = bsearch(rd, ip_list.ips, ip_list.entries, sizeof(struct in_addr),
                     cmp_in_addr);
@@ -883,7 +854,7 @@ static void free_delay(int pos) {
 }
 
 static void usage() {
-  printf("%s\n", "\
+  LOG("%s\n", "\
 usage: chinadns [-h] [-l IPLIST_FILE] [-b BIND_ADDR] [-p BIND_PORT]\n\
        [-c CHNROUTE_FILE] [-s DNS] [-m] [-v] [-V]\n\
 Forward DNS requests.\n\
