@@ -60,7 +60,7 @@ class ConfigurationViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 7
+            return 10
         case 1:
             return 1
         default:
@@ -111,6 +111,11 @@ class ConfigurationViewController: UITableViewController {
                 cell.textField.text = "8.8.8.8"
                 bindData(cell.textField, property: "dns")
             case 8:
+                cell.textLabel?.text = "MTU"
+                cell.textField.placeholder = "MTU"
+                cell.textField.text = "1432"
+                bindData(cell.textField, property: "mtu")
+            case 9:
                 cell.textLabel?.text = "CHNRoutes"
                 cell.textField.placeholder = "TODO"
                 bindData(cell.textField, property: "chnroutes")

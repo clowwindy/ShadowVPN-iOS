@@ -22,6 +22,7 @@
 		62A427721B5A3ED800BB4AD9 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */; };
 		62A427761B5A3ED800BB4AD9 /* tunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		62D8D2691B76286F009FA6FE /* ConfigurationTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D2681B76286F009FA6FE /* ConfigurationTextCell.swift */; };
+		62D8D26B1B771B63009FA6FE /* NSData+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26A1B771B63009FA6FE /* NSData+Hex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		62A427731B5A3ED800BB4AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62D8D2681B76286F009FA6FE /* ConfigurationTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationTextCell.swift; sourceTree = "<group>"; };
+		62D8D26A1B771B63009FA6FE /* NSData+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+Hex.swift"; sourceTree = "<group>"; };
 		F8715C8B6D2ECED571986A72 /* Pods-tunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +118,7 @@
 				620A5B871B5A9F1E00F98476 /* crypto.h */,
 				620A5B8E1B5AA85800F98476 /* SVCrypto.h */,
 				620A5B8F1B5AA85800F98476 /* SVCrypto.m */,
+				62D8D26A1B771B63009FA6FE /* NSData+Hex.swift */,
 			);
 			name = Crypto;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				620A5B891B5A9F1E00F98476 /* crypto.c in Sources */,
 				620A5B881B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c in Sources */,
 				620A5B901B5AA85800F98476 /* SVCrypto.m in Sources */,
+				62D8D26B1B771B63009FA6FE /* NSData+Hex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

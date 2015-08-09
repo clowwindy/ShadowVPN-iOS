@@ -77,6 +77,7 @@ static NSString *kUdpBufKey = @"SVUdpBuf";
     memcpy(udp_buf + SHADOWVPN_PACKET_OFFSET, data.bytes, data.length);
     crypto_decrypt(tun_buf, udp_buf, data.length - SHADOWVPN_OVERHEAD_LEN);
     NSData *result = [NSData dataWithBytes:tun_buf + SHADOWVPN_ZERO_BYTES + usertoken_len length:data.length - SHADOWVPN_OVERHEAD_LEN - usertoken_len];
+    NSLog(@"%@", result);
     return result;
 }
 
