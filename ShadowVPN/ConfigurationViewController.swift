@@ -81,40 +81,61 @@ class ConfigurationViewController: UITableViewController {
             case 1:
                 cell.textLabel?.text = "Server"
                 cell.textField.placeholder = "Server IP"
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
                 bindData(cell.textField, property: "server")
             case 2:
                 cell.textLabel?.text = "Port"
                 cell.textField.placeholder = "Server Port"
                 cell.textField.text = "1123"
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
+                cell.textField.keyboardType = .NumberPad
                 bindData(cell.textField, property: "port")
             case 3:
                 cell.textLabel?.text = "Password"
                 cell.textField.placeholder = "Required"
+                cell.textField.secureTextEntry = true
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
                 bindData(cell.textField, property: "password")
             case 4:
                 cell.textLabel?.text = "User Token"
                 cell.textField.placeholder = "Optional"
                 cell.textField.text = "7e335d67f1dc2c01"
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
                 bindData(cell.textField, property: "usertoken")
             case 5:
                 cell.textLabel?.text = "IP"
                 cell.textField.placeholder = "Required"
                 cell.textField.text = "10.7.0.2"
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
+                cell.textField.keyboardType = .DecimalPad
                 bindData(cell.textField, property: "ip")
             case 6:
                 cell.textLabel?.text = "Subnet"
                 cell.textField.placeholder = "Required"
                 cell.textField.text = "255.255.255.0"
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
+                cell.textField.keyboardType = .DecimalPad
                 bindData(cell.textField, property: "subnet")
             case 7:
                 cell.textLabel?.text = "DNS"
                 cell.textField.placeholder = "DNS Server Address"
                 cell.textField.text = "114.114.114.114,223.5.5.5,8.8.8.8,8.8.4.4,208.67.222.222"
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
                 bindData(cell.textField, property: "dns")
             case 8:
                 cell.textLabel?.text = "MTU"
                 cell.textField.placeholder = "MTU"
                 cell.textField.text = "1432"
+                cell.textField.autocapitalizationType = .None
+                cell.textField.autocorrectionType = .No
+                cell.textField.keyboardType = .NumberPad
                 bindData(cell.textField, property: "mtu")
             case 9:
                 cell.textLabel?.text = "Route"

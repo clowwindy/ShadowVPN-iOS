@@ -38,6 +38,7 @@
     
     char *iplistPath = strdup([[[NSBundle mainBundle] pathForResource:@"iplist" ofType:@"txt"] cStringUsingEncoding:NSUTF8StringEncoding]);
     char *chnroutesPath = strdup([[[NSBundle mainBundle] pathForResource:@"chnroutes" ofType:@"txt"] cStringUsingEncoding:NSUTF8StringEncoding]);
+    char *dns = strdup([_dns cStringUsingEncoding:NSUTF8StringEncoding]);
     NSLog(@"%s", iplistPath);
     NSLog(@"%s", chnroutesPath);
     
@@ -46,6 +47,8 @@
     ADD_ARGV(iplistPath);
     ADD_ARGV("-c");
     ADD_ARGV(chnroutesPath);
+    ADD_ARGV("-s");
+    ADD_ARGV(dns);
     ADD_ARGV("-b");
     ADD_ARGV("127.0.0.1");
     ADD_ARGV("-p");
@@ -54,6 +57,7 @@
     int r = chinadns_main(argc, argv);
     free(iplistPath);
     free(chnroutesPath);
+    free(dns);
     exit(r);
 }
 

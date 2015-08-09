@@ -212,7 +212,6 @@ static int parse_args(int argc, char **argv) {
   listen_addr = strdup(default_listen_addr);
   listen_port = strdup(default_listen_port);
   while ((ch = getopt(argc, argv, "hb:p:s:l:c:y:dmvV")) != -1) {
-      LOG("%c", ch);
     switch (ch) {
       case 'h':
         usage();
