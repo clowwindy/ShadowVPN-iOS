@@ -282,7 +282,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BDA17F92201F3E8932BD288A3D143A45 /* PBXContainerItemProxy */ = {
+		5B75BE6D79BA72DED112683438AFB7F6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
@@ -1103,7 +1103,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				EE35B0AE7D1392E62525F9F77098DA7C /* PBXTargetDependency */,
+				4AC43A398A7CCFBA284C93DB57B6E8B0 /* PBXTargetDependency */,
 			);
 			name = "Pods-tunnel";
 			productName = "Pods-tunnel";
@@ -1312,11 +1312,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EE35B0AE7D1392E62525F9F77098DA7C /* PBXTargetDependency */ = {
+		4AC43A398A7CCFBA284C93DB57B6E8B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libsodium;
 			target = 2BBB07671F2703B4D3902EC0E62B2E33 /* libsodium */;
-			targetProxy = BDA17F92201F3E8932BD288A3D143A45 /* PBXContainerItemProxy */;
+			targetProxy = 5B75BE6D79BA72DED112683438AFB7F6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

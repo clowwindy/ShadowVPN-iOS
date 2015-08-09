@@ -3,6 +3,8 @@
 
 target 'ShadowVPN' do
 
+platform:ios, '9.0'
+
 end
 
 target 'tunnel' do
