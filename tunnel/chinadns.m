@@ -97,6 +97,8 @@ static net_list_t chnroute_list;
 static int parse_chnroute();
 static int test_ip_in_list(struct in_addr ip, const net_list_t *netlist);
 
+int remote_recreate_required;
+
 static int dns_init_sockets();
 static void dns_handle_local();
 static void dns_handle_remote();

@@ -18,6 +18,13 @@
 #ifndef chinadns_h
 #define chinadns_h
 
+// a hack
+// caller set it to 1 when Reachability changes
+// will be reset to 0 when the changes is handled by ChinaDNS
+extern int remote_recreate_required;
+
+// ChinaDNS main
+// should be called from a background thread
 int chinadns_main(int argc, char **argv);
 
 #endif /* chinadns_h */
