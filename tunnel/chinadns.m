@@ -84,7 +84,7 @@ static int parse_args(int argc, char **argv);
 static int setnonblock(int sock);
 static int resolve_dns_servers();
 
-static const char *default_listen_addr = "0.0.0.0";
+static const char *default_listen_addr = "127.0.0.1";
 static const char *default_listen_port = "53";
 
 static char *listen_addr = NULL;
