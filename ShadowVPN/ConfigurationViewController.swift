@@ -139,9 +139,15 @@ class ConfigurationViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if (indexPath.section == 1) {
-            // TODO alert
-            self.providerManager?.removeFromPreferencesWithCompletionHandler({ (error) -> Void in
-                self.navigationController?.popViewControllerAnimated(true)
+            let alertController = UIAlertController(title: nil, message: "Delete this configuration?", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
+                self.providerManager?.removeFromPreferencesWithCompletionHandler({ (error) -> Void in
+                    self.navigationController?.popViewControllerAnimated(true)
+                })
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+            }))
+            self.presentViewController(alertController, animated: true, completion: { () -> Void in
             })
         }
     }
