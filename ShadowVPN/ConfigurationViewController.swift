@@ -116,9 +116,10 @@ class ConfigurationViewController: UITableViewController {
                 cell.textField.text = "1432"
                 bindData(cell.textField, property: "mtu")
             case 9:
-                cell.textLabel?.text = "CHNRoutes"
-                cell.textField.placeholder = "TODO"
-                bindData(cell.textField, property: "chnroutes")
+                cell.textLabel?.text = "Route"
+                cell.textField.placeholder = "Optinal"
+                cell.textField.text = "chnroutes"
+                bindData(cell.textField, property: "route")
                 break
             default:
                 break

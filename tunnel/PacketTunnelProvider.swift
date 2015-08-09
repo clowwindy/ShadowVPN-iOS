@@ -14,6 +14,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var pendingStartCompletion: (NSError? -> Void)?
     var userToken: NSData?
     var testUDP: TestUDP?
+    var routeManager: RouteManager?
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
         NSLog("test")
@@ -48,7 +49,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         NSLog("test5")
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: self.protocolConfiguration.serverAddress!)
         newSettings.IPv4Settings = NEIPv4Settings(addresses: [conf["ip"] as! String], subnetMasks: [conf["subnet"] as! String])
-        RouteManager(route: conf["route"] as? String, IPv4Settings: newSettings.IPv4Settings!)
+        routeManager = RouteManager(route: conf["route"] as? String, IPv4Settings: newSettings.IPv4Settings!)
         if conf["mtu"] != nil {
             newSettings.MTU = Int(conf["mtu"] as! String)
         } else {
@@ -68,6 +69,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 //        self.log("completion")
                 NSLog("test10")
                 NSLog("%@", String(error))
+                NSLog("VPN started")
                 completionHandler(error)
             }
         }

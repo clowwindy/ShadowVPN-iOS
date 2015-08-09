@@ -26,6 +26,7 @@
 		62D8D26E1B77275B009FA6FE /* TestUDP.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26D1B77275B009FA6FE /* TestUDP.m */; };
 		62D8D2701B772C5A009FA6FE /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26F1B772C5A009FA6FE /* RouteManager.swift */; };
 		62D8D2981B77342F009FA6FE /* chinadns.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D2971B77342F009FA6FE /* chinadns.m */; };
+		62D8D29B1B773622009FA6FE /* chnroutes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 62D8D29A1B773622009FA6FE /* chnroutes.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		62D8D26F1B772C5A009FA6FE /* RouteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManager.swift; sourceTree = "<group>"; };
 		62D8D2971B77342F009FA6FE /* chinadns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = chinadns.m; sourceTree = "<group>"; };
 		62D8D2991B77345C009FA6FE /* chinadns.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chinadns.h; sourceTree = "<group>"; };
+		62D8D29A1B773622009FA6FE /* chnroutes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chnroutes.txt; sourceTree = "<group>"; };
 		F8715C8B6D2ECED571986A72 /* Pods-tunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -235,6 +237,7 @@
 		62D8D2961B7733ED009FA6FE /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				62D8D29A1B773622009FA6FE /* chnroutes.txt */,
 				62D8D26F1B772C5A009FA6FE /* RouteManager.swift */,
 			);
 			name = Route;
@@ -356,6 +359,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62D8D29B1B773622009FA6FE /* chnroutes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
