@@ -16,8 +16,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var chinaDNS: ChinaDNSRunner?
     var routeManager: RouteManager?
     var wifi = ChinaDNSRunner.checkWiFiNetwork()
+    var queue: dispatch_queue_t?
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
+        queue = dispatch_queue_create("shadowvpn.queue", nil)
         conf = (self.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!
         self.pendingStartCompletion = completionHandler
         chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
@@ -29,20 +31,31 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         NSLog("setPassword")
         SVCrypto.setPassword(conf["password"] as! String)
         self.recreateUDP()
-        self.updateNetwork()
     }
     
     func recreateUDP() {
-        self.reasserting = true
-        if session != nil {
-            self.session = nil
+//        var t = dispatch_time_t(0)
+        if self.session != nil {
+//            t = 10000000000
+            self.reasserting = true
         }
-        if let serverAddress = self.protocolConfiguration.serverAddress {
-            if let port = conf["port"] as? String {
-                NSLog("recreateUDP")
-                self.session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: port), fromEndpoint: nil)
-                self.updateNetwork()
-                self.reasserting = false
+        dispatch_async(queue!) { () -> Void in
+            self.session = nil
+            if let serverAddress = self.protocolConfiguration.serverAddress {
+                if let port = self.conf["port"] as? String {
+                    self.setTunnelNetworkSettings(nil) { (error: NSError?) -> Void in
+                        if let error = error {
+                            NSLog("%@", error)
+                            exit(1)
+                        }
+                        dispatch_async(self.queue!) { () -> Void in
+                            NSLog("recreateUDP")
+                            self.session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: port), fromEndpoint: nil)
+                            self.updateNetwork()
+                            self.reasserting = false
+                        }
+                    }
+                }
             }
         }
     }

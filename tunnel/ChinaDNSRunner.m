@@ -82,6 +82,8 @@ static BOOL _wifiStatus;
             if (temp_addr->ifa_addr->sa_family == AF_INET)
             {
                 NSString* name = [NSString stringWithUTF8String:temp_addr->ifa_name];
+                NSString* address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+//                NSLog(@"%@ %@", name, address);
                 if ([name rangeOfString:@"en"].location == 0) {
                     found = YES;
                     break;
