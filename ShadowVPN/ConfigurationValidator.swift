@@ -11,6 +11,21 @@ import UIKit
 class ConfigurationValidator: NSObject {
     
     // return nil if there's no error
+    class func validateIP(ip: String) -> String? {
+        let parts = ip.componentsSeparatedByString(".")
+        if parts.count != 4 {
+            return "Invalid IP: " + ip
+        }
+        for part in parts {
+            let n = Int(part)
+            if n == nil || n < 0 || n > 255 {
+                return "Invalid IP: " + ip
+            }
+        }
+        return nil
+    }
+    
+    // return nil if there's no error
     class func validate(configuration: [String: AnyObject]) -> String? {
         // 1. server must be not empty
         if configuration["server"] == nil || configuration["server"]?.length == 0 {
@@ -32,13 +47,46 @@ class ConfigurationValidator: NSObject {
         if configuration["usertoken"] != nil {
             if let usertoken = configuration["usertoken"] as? String {
                 if NSData.fromHexString(usertoken).length != 8 {
-                    return "Usertoken must be HEX of 8 bytes (string length: 16)"
+                    return "Usertoken must be HEX of 8 bytes (example: 7e335d67f1dc2c01)"
                 }
             }
         }
         // 5. ip must be valid IP
+        if configuration["ip"] == nil || configuration["ip"]?.length == 0 {
+            return "IP must not be empty"
+        }
+        if let ip = configuration["ip"] as? String {
+            let r = validateIP(ip)
+            if r != nil {
+                return r
+            }
+        }
         // 6. subnet must be valid subnet
+        if configuration["subnet"] == nil || configuration["subnet"]?.length == 0 {
+            return "Subnet must not be empty"
+        }
+        if let subnet = configuration["subnet"] as? String {
+            let r = validateIP(subnet)
+            if r != nil {
+                return r
+            }
+        }
         // 7. dns must be comma separated ip addresses
+        if configuration["dns"] == nil || configuration["dns"]?.length == 0 {
+            return "DNS must not be empty"
+        }
+        if let dns = configuration["dns"] as? String {
+            let ips = dns.componentsSeparatedByString(",")
+            if ips.count == 0 {
+                return "DNS must not be empty"
+            }
+            for ip in ips {
+                let r = validateIP(ip)
+                if r != nil {
+                    return r
+                }
+            }
+        }
         // 8. mtu must be int
         if configuration["mtu"] == nil || configuration["mtu"]?.length == 0 {
             return "MTU must not be empty"
