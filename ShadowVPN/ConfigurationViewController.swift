@@ -20,13 +20,18 @@ class ConfigurationViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "save")
         self.title = providerManager?.protocolConfiguration?.serverAddress
         let conf:NETunnelProviderProtocol = self.providerManager?.protocolConfiguration as! NETunnelProviderProtocol
+        // Dictionary in Swift is a struct. This is a copy
         self.configuration = conf.providerConfiguration!
     }
     
-    func save() {
+    func updateConfiguration() {
         for (k, v) in self.bindMap {
             self.configuration[k] = v.text
         }
+    }
+    
+    func save() {
+        updateConfiguration()
         if let result = ConfigurationValidator.validate(self.configuration) {
             let alertController = UIAlertController(title: "Error", message: result, preferredStyle: .Alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
@@ -137,11 +142,10 @@ class ConfigurationViewController: UITableViewController {
                 cell.textField.keyboardType = .NumberPad
                 bindData(cell.textField, property: "mtu")
             case 9:
+                let cell = UITableViewCell(style: .Value1, reuseIdentifier: "value1")
                 cell.textLabel?.text = "Route"
-                cell.textField.placeholder = "Optinal"
-                cell.textField.text = "chnroutes"
-                bindData(cell.textField, property: "route")
-                break
+                cell.detailTextLabel?.text = self.configuration["chnroutes"] as? String
+                return cell
             default:
                 break
             }
@@ -158,7 +162,22 @@ class ConfigurationViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if (indexPath.section == 1) {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 9) {
+                let dataSource = SimpleTableViewSource(labels: ["Default", "CHNRoutes"], values: ["default", "chnroutes"], initialValue: "chnroutes", selectionBlock: { (result) -> Void in
+                    // else we'll lost unsaved modifications
+                    self.updateConfiguration()
+                    self.configuration["chnroutes"] = result
+                    self.tableView.reloadData()
+                })
+                let controller = UIViewController()
+                let tableView = UITableView(frame: controller.view.frame, style: .Grouped)
+                tableView.dataSource = dataSource
+                tableView.delegate = dataSource
+                controller.view = tableView
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+        } else if (indexPath.section == 1) {
             let alertController = UIAlertController(title: nil, message: "Delete this configuration?", preferredStyle: .Alert)
             alertController.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
                 self.providerManager?.removeFromPreferencesWithCompletionHandler({ (error) -> Void in

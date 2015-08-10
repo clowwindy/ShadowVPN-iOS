@@ -13,6 +13,7 @@
 		620A5B881B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B841B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c */; };
 		620A5B891B5A9F1E00F98476 /* crypto.c in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B861B5A9F1E00F98476 /* crypto.c */; };
 		620A5B901B5AA85800F98476 /* SVCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B8F1B5AA85800F98476 /* SVCrypto.m */; };
+		623DE1E61B78AAB200B1440F /* SimpleTableViewSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 623DE1E51B78AAB200B1440F /* SimpleTableViewSource.m */; };
 		625E05051B73D3C30041A9D6 /* checkmark_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625E05031B73D3C30041A9D6 /* checkmark_empty@2x.png */; };
 		625E05061B73D3C30041A9D6 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 625E05041B73D3C30041A9D6 /* checkmark@2x.png */; };
 		626520C21B73AB890064F653 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626520C11B73AB890064F653 /* MainViewController.swift */; };
@@ -68,6 +69,9 @@
 		620A5B871B5A9F1E00F98476 /* crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto.h; sourceTree = "<group>"; };
 		620A5B8E1B5AA85800F98476 /* SVCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVCrypto.h; sourceTree = "<group>"; };
 		620A5B8F1B5AA85800F98476 /* SVCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVCrypto.m; sourceTree = "<group>"; };
+		623DE1E31B78AAB100B1440F /* ShadowVPN-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShadowVPN-Bridging-Header.h"; sourceTree = "<group>"; };
+		623DE1E41B78AAB200B1440F /* SimpleTableViewSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableViewSource.h; sourceTree = "<group>"; };
+		623DE1E51B78AAB200B1440F /* SimpleTableViewSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableViewSource.m; sourceTree = "<group>"; };
 		625E05031B73D3C30041A9D6 /* checkmark_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark_empty@2x.png"; sourceTree = "<group>"; };
 		625E05041B73D3C30041A9D6 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		626520C11B73AB890064F653 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 		62D48D7E1B739528003E4FEE /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				623DE1E41B78AAB200B1440F /* SimpleTableViewSource.h */,
+				623DE1E51B78AAB200B1440F /* SimpleTableViewSource.m */,
 				626520C11B73AB890064F653 /* MainViewController.swift */,
 				626520C31B73ABA10064F653 /* ConfigurationViewController.swift */,
 				62D8D2681B76286F009FA6FE /* ConfigurationTextCell.swift */,
@@ -216,6 +222,7 @@
 		62D48D7F1B73952D003E4FEE /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				623DE1E31B78AAB100B1440F /* ShadowVPN-Bridging-Header.h */,
 				62A427681B5A3E2500BB4AD9 /* ShadowVPN.entitlements */,
 				62A427501B5A3C9700BB4AD9 /* AppDelegate.swift */,
 				62A427571B5A3C9700BB4AD9 /* Assets.xcassets */,
@@ -417,6 +424,7 @@
 			files = (
 				620629BD1B789DE50034179B /* NSData+Hex.swift in Sources */,
 				62D8D2691B76286F009FA6FE /* ConfigurationTextCell.swift in Sources */,
+				623DE1E61B78AAB200B1440F /* SimpleTableViewSource.m in Sources */,
 				62A427511B5A3C9700BB4AD9 /* AppDelegate.swift in Sources */,
 				626520C41B73ABA10064F653 /* ConfigurationViewController.swift in Sources */,
 				620629BC1B789A320034179B /* ConfigurationValidator.swift in Sources */,
@@ -559,7 +567,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShadowVPN/ShadowVPN-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -579,7 +587,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShadowVPN/ShadowVPN-Bridging-Header.h";
 			};
 			name = Release;
 		};
