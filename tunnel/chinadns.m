@@ -496,6 +496,14 @@ static int test_ip_in_list(struct in_addr ip, const net_list_t *netlist) {
   return 1;
 }
 
+static int recreate_remote_sock() {
+    if (remote_sock) {
+        close(remote_sock);
+    }
+    remote_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    return remote_sock;
+}
+
 static int dns_init_sockets() {
   struct addrinfo hints;
   struct addrinfo *addr_ip;
@@ -591,15 +599,19 @@ static void dns_handle_local() {
           for (i = 0; i < has_chn_dns; i++) {
             if (-1 == sendto(remote_sock, global_buf, len, 0,
                              dns_server_addrs[i].addr,
-                             dns_server_addrs[i].addrlen))
+                             dns_server_addrs[i].addrlen)) {
               ERR("sendto");
+              recreate_remote_sock();
+            }
           }
           for (i =  has_chn_dns; i < dns_servers_len; i++) {
             if (-1 == sendto(remote_sock, compression_buf, len + 1, 0,
                              dns_server_addrs[i].addr,
-                             dns_server_addrs[i].addrlen))
+                             dns_server_addrs[i].addrlen)) {
               ERR("sendto");
-            sended = 1;
+              recreate_remote_sock();
+              sended = 1;
+            }
           }
         }
       }
@@ -608,8 +620,10 @@ static void dns_handle_local() {
       for (i = 0; i < dns_servers_len; i++) {
         if (-1 == sendto(remote_sock, global_buf, len, 0,
                          dns_server_addrs[i].addr,
-                         dns_server_addrs[i].addrlen))
+                         dns_server_addrs[i].addrlen)) {
           ERR("sendto");
+          recreate_remote_sock();
+        }
       }
     }
   }
@@ -650,8 +664,9 @@ static void dns_handle_remote() {
         if (verbose)
           LOG("pass\n");
         if (-1 == sendto(local_sock, global_buf, len, 0, id_addr->addr,
-                         id_addr->addrlen))
-          ERR("sendto");
+                         id_addr->addrlen)) {
+          ERR("sendto local_sock");
+        }
       } else if (r == -1) {
         schedule_delay(query_id, global_buf, len, id_addr->addr,
                        id_addr->addrlen);
@@ -845,8 +860,9 @@ static void check_and_send_delay() {
     delay_buf_t *delay_buf = &delay_queue[i];
     if (time_diff(delay_buf->ts, now) > empty_result_delay) {
       if (-1 == sendto(local_sock, delay_buf->buf, delay_buf->buflen, 0,
-                       delay_buf->addr, delay_buf->addrlen))
-        ERR("sendto");
+                       delay_buf->addr, delay_buf->addrlen)) {
+        ERR("sendto local_sock");
+      }
       free_delay(i);
       delay_queue_first = (delay_queue_first + 1) % DELAY_QUEUE_LEN;
     } else {

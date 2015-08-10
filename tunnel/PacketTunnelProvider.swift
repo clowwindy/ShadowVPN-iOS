@@ -15,28 +15,33 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var userToken: NSData?
     var chinaDNS: ChinaDNSRunner?
     var routeManager: RouteManager?
+    var queue: dispatch_queue_t?
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
-        NSLog("test")
+        queue = dispatch_queue_create("shadowvpn.vpn", DISPATCH_QUEUE_SERIAL)
+        conf = (self.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!
+        self.pendingStartCompletion = completionHandler
+        chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
+        if let userTokenString = conf["usertoken"] as? String {
+            if userTokenString.characters.count == 16 {
+                userToken = NSData.fromHexString(userTokenString)
+            }
+        }
+        self.recreateUDP()
+        self.updateNetwork()
+    }
+    
+    func recreateUDP() {
+        if let session = session {
+            session.cancel()
+        }
         if let serverAddress = self.protocolConfiguration.serverAddress {
-            
-            conf = (self.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!
             if let port = conf["port"] as? String {
-                NSLog("test2")
-                session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: port), fromEndpoint: nil)
-                self.pendingStartCompletion = completionHandler
-                NSLog("test3")
-                chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
-                if let userTokenString = conf["usertoken"] as? String {
-                    if userTokenString.characters.count == 16 {
-                        userToken = NSData.fromHexString(userTokenString)
-                        NSLog("test4")
-                    }
-                }
-                self.updateNetwork()
+                NSLog("recreateUDP")
+                self.session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: port), fromEndpoint: nil)
             }
         } else {
-            completionHandler(NSError(domain:"PacketTunnelProviderDomain", code:-1, userInfo:[NSLocalizedDescriptionKey:"Configuration is missing serverAddress"]))
+            self.pendingStartCompletion!(NSError(domain:"PacketTunnelProviderDomain", code:-1, userInfo:[NSLocalizedDescriptionKey:"Configuration is missing serverAddress"]))
         }
     }
     
@@ -46,7 +51,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     }
     
     func updateNetwork() {
-        NSLog("test5")
+        NSLog("updateNetwork")
         let newSettings = NEPacketTunnelNetworkSettings(tunnelRemoteAddress: self.protocolConfiguration.serverAddress!)
         newSettings.IPv4Settings = NEIPv4Settings(addresses: [conf["ip"] as! String], subnetMasks: [conf["subnet"] as! String])
         routeManager = RouteManager(route: conf["route"] as? String, IPv4Settings: newSettings.IPv4Settings!)
@@ -62,18 +67,17 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             NSLog("using DNS")
             newSettings.DNSSettings = NEDNSSettings(servers: (conf["dns"] as! String).componentsSeparatedByString(","))
         }
-        NSLog("test6")
+        NSLog("setPassword")
         SVCrypto.setPassword(conf["password"] as! String)
-        NSLog("test7")
+        NSLog("setTunnelNetworkSettings")
         self.setTunnelNetworkSettings(newSettings) { (error: NSError?) -> Void in
-            NSLog("test8")
+            NSLog("readPacketsFromTUN")
             self.readPacketsFromTUN()
             self.readPacketsFromUDP()
-            NSLog("test9")
+            NSLog("readPacketsFromUDP")
             if let completionHandler = self.pendingStartCompletion {
                 // send an packet
                 //        self.log("completion")
-                NSLog("test10")
                 NSLog("%@", String(error))
                 NSLog("VPN started")
                 completionHandler(error)
@@ -95,6 +99,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             for packet in packets {
 //                NSLog("TUN: %d", packet.length)
                 self.session?.writeDatagram(SVCrypto.encryptWithData(packet, userToken: self.userToken), completionHandler: { (error: NSError?) -> Void in
+                    if let error = error {
+                        NSLog("%@", error)
+                        self.recreateUDP()
+                    }
                 })
             }
             self.readPacketsFromTUN()
@@ -122,7 +130,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     
     override func stopTunnelWithReason(reason: NEProviderStopReason, completionHandler: () -> Void) {
         // Add code here to start the process of stopping the tunnel
-        //    self.log("stop tunnel")
+        self.log("stopTunnelWithReason")
         session?.cancel()
         completionHandler()
         super.stopTunnelWithReason(reason, completionHandler: completionHandler)
