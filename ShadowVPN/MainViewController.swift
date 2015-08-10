@@ -92,15 +92,11 @@ class MainViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = UITableViewCell()
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "status")
             cell.selectionStyle = .None
             cell.textLabel?.text = "Status"
-            let accessoryView = UIView(frame: CGRect(x: 0, y: 0, width: 201, height: vpnStatusSwitch.frame.height))
-            vpnStatusLabel.frame = CGRect(x: 0, y: 0, width: 140, height: vpnStatusSwitch.frame.height)
-            vpnStatusSwitch.frame = CGRect(x: 150, y: 0, width: 51, height: vpnStatusSwitch.frame.height)
-            accessoryView.addSubview(vpnStatusLabel)
-            accessoryView.addSubview(vpnStatusSwitch)
-            cell.accessoryView = accessoryView
+            vpnStatusLabel = cell.detailTextLabel!
+            cell.accessoryView = vpnStatusSwitch
             return cell
         } else {
             let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "configuration")

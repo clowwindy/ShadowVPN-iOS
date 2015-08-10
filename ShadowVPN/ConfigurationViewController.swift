@@ -24,7 +24,6 @@ class ConfigurationViewController: UITableViewController {
     }
     
     func save() {
-        // TODO validate settings
         for (k, v) in self.bindMap {
             self.configuration[k] = v.text
         }
