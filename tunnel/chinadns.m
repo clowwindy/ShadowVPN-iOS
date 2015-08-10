@@ -731,8 +731,10 @@ static int should_filter_query(ns_msg msg, struct in_addr dns_addr) {
     if (compression) {
       // Wait for foreign dns
       if (dns_is_chn) {
+        LOG("compression dns_is_chn");
         return 1;
       } else {
+        LOG("compression !dns_is_chn");
         return 0;
       }
     }
@@ -774,6 +776,7 @@ static int should_filter_query(ns_msg msg, struct in_addr dns_addr) {
       }
     } else if (type == ns_t_aaaa || type == ns_t_ptr) {
       // if we've got an IPv6 result or a PTR result, pass
+      LOG("AAAA or PTR");
       return 0;
     }
   }

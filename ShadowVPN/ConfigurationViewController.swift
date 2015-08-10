@@ -138,7 +138,7 @@ class ConfigurationViewController: UITableViewController {
             case 8:
                 cell.textLabel?.text = "MTU"
                 cell.textField.placeholder = "MTU"
-                cell.textField.text = "1432"
+                cell.textField.text = "1350"
                 cell.textField.autocapitalizationType = .None
                 cell.textField.autocorrectionType = .No
                 cell.textField.keyboardType = .NumberPad

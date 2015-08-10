@@ -55,8 +55,13 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         } else {
             newSettings.MTU = 1432
         }
-//        newSettings.DNSSettings = NEDNSSettings(servers: [conf["dns"] as! String])
-        newSettings.DNSSettings = NEDNSSettings(servers: ["127.0.0.1"])
+        if "chnroutes" == (conf["route"] as? String) {
+            NSLog("using ChinaDNS")
+            newSettings.DNSSettings = NEDNSSettings(servers: ["127.0.0.1"])
+        } else {
+            NSLog("using DNS")
+            newSettings.DNSSettings = NEDNSSettings(servers: (conf["dns"] as! String).componentsSeparatedByString(","))
+        }
         NSLog("test6")
         SVCrypto.setPassword(conf["password"] as! String)
         NSLog("test7")
@@ -88,6 +93,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             //        self.log("protocol: " + p.stringValue)
             //      }
             for packet in packets {
+                NSLog("TUN: %d", packet.length)
                 self.session?.writeDatagram(SVCrypto.encryptWithData(packet, userToken: self.userToken), completionHandler: { (error: NSError?) -> Void in
                 })
             }
@@ -103,8 +109,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             var protocols = [NSNumber]()
             var decryptedPackets = [NSData]()
             for packet in packets {
+                NSLog("UDP: %d", packet.length)
                 // currently IPv4 only
-                decryptedPackets.append(SVCrypto.decryptWithData(packet, userToken: self.userToken))
+                let decrypted = SVCrypto.decryptWithData(packet, userToken: self.userToken)
+                NSLog("write to TUN: %d", decrypted.length)
+                decryptedPackets.append(decrypted)
                 protocols.append(2)
             }
             self.packetFlow.writePackets(decryptedPackets, withProtocols: protocols)
