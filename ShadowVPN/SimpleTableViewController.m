@@ -6,10 +6,10 @@
 //
 
 
-#import "SimpleTableViewSource.h"
+#import "SimpleTableViewController.h"
 
 
-@implementation SimpleTableViewSource {
+@implementation SimpleTableViewController {
     NSArray *_labels;
     NSArray *_values;
     NSObject *_value;
@@ -17,7 +17,7 @@
 }
 
 - (id)initWithLabels:(NSArray *)labels values:(NSArray *)values initialValue:(NSObject *)value selectionBlock:(SimpleTableViewSourceSelectionBlock)block {
-    self = [super init];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         _labels = labels;
         _values = values;

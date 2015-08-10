@@ -10,7 +10,7 @@
 
 typedef void (^SimpleTableViewSourceSelectionBlock)(NSObject *value);
 
-@interface SimpleTableViewSource : NSObject<UITableViewDataSource, UITableViewDelegate>
+@interface SimpleTableViewController : UITableViewController
 
 -(id)initWithLabels:(NSArray *)labels values:(NSArray *)values initialValue:(NSObject *)value selectionBlock:(SimpleTableViewSourceSelectionBlock)block;
 

@@ -28,7 +28,7 @@ class ConfigurationViewController: UITableViewController {
         for (k, v) in self.bindMap {
             self.configuration[k] = v.text
         }
-        self.configuration["route"] = "chnroutes"
+//        self.configuration["route"] = "chnroutes"
     }
     
     func save() {
@@ -65,7 +65,7 @@ class ConfigurationViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 9
+            return 10
         case 1:
             return 1
         default:
@@ -144,9 +144,12 @@ class ConfigurationViewController: UITableViewController {
                 cell.textField.keyboardType = .NumberPad
                 bindData(cell.textField, property: "mtu")
             case 9:
-                let cell = UITableViewCell(style: .Value1, reuseIdentifier: "value1")
                 cell.textLabel?.text = "Route"
-                cell.detailTextLabel?.text = self.configuration["chnroutes"] as? String
+                cell.textField.text = "chnroutes"
+                cell.textField.enabled = false
+                cell.accessoryType = .DisclosureIndicator
+                cell.selectionStyle = .Default
+                bindData(cell.textField, property: "route")
                 return cell
             default:
                 break
@@ -166,17 +169,12 @@ class ConfigurationViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if (indexPath.section == 0) {
             if (indexPath.row == 9) {
-                let dataSource = SimpleTableViewSource(labels: ["Default", "CHNRoutes"], values: ["default", "chnroutes"], initialValue: "chnroutes", selectionBlock: { (result) -> Void in
+                let controller = SimpleTableViewController(labels: ["Default", "CHNRoutes"], values: ["default", "chnroutes"], initialValue: self.configuration["route"] as? String, selectionBlock: { (result) -> Void in
                     // else we'll lost unsaved modifications
                     self.updateConfiguration()
                     self.configuration["route"] = result
                     self.tableView.reloadData()
                 })
-                let controller = UIViewController()
-                let tableView = UITableView(frame: controller.view.frame, style: .Grouped)
-                tableView.dataSource = dataSource
-                tableView.delegate = dataSource
-                controller.view = tableView
                 self.navigationController?.pushViewController(controller, animated: true)
             }
         } else if (indexPath.section == 1) {
