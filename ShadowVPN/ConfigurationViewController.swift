@@ -18,23 +18,23 @@ class ConfigurationViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "save")
-    }
-    
-    override func viewWillAppear(animated: Bool) {
         self.title = providerManager?.protocolConfiguration?.serverAddress
         let conf:NETunnelProviderProtocol = self.providerManager?.protocolConfiguration as! NETunnelProviderProtocol
-        
         self.configuration = conf.providerConfiguration!
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
     }
     
     func save() {
         // TODO validate settings
         for (k, v) in self.bindMap {
             self.configuration[k] = v.text
+        }
+        if let result = ConfigurationValidator.validate(self.configuration) {
+            let alertController = UIAlertController(title: "Error", message: result, preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
+            }))
+            self.presentViewController(alertController, animated: true, completion: { () -> Void in
+            })
+            return
         }
         (self.providerManager?.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration = self.configuration
         self.providerManager?.protocolConfiguration?.serverAddress = self.configuration["server"] as? String

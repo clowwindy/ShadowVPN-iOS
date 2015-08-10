@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5EA8D9810A0C84460A50A3DA /* libPods-tunnel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC75A2A2AB75447D9D64CB9 /* libPods-tunnel.a */; };
+		620629BC1B789A320034179B /* ConfigurationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620629BB1B789A320034179B /* ConfigurationValidator.swift */; };
+		620629BD1B789DE50034179B /* NSData+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26A1B771B63009FA6FE /* NSData+Hex.swift */; };
 		620A5B881B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B841B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c */; };
 		620A5B891B5A9F1E00F98476 /* crypto.c in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B861B5A9F1E00F98476 /* crypto.c */; };
 		620A5B901B5AA85800F98476 /* SVCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 620A5B8F1B5AA85800F98476 /* SVCrypto.m */; };
@@ -58,6 +60,7 @@
 /* Begin PBXFileReference section */
 		52E22CBCA9CEB75CB469204A /* Pods-tunnel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.debug.xcconfig"; sourceTree = "<group>"; };
 		5FC75A2A2AB75447D9D64CB9 /* libPods-tunnel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tunnel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		620629BB1B789A320034179B /* ConfigurationValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationValidator.swift; sourceTree = "<group>"; };
 		620A5B821B5A9E3100F98476 /* tunnel-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tunnel-Bridging-Header.h"; sourceTree = "<group>"; };
 		620A5B841B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypto_secretbox_salsa208poly1305.c; sourceTree = "<group>"; };
 		620A5B851B5A9F1E00F98476 /* crypto_secretbox_salsa208poly1305.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto_secretbox_salsa208poly1305.h; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 				626520C11B73AB890064F653 /* MainViewController.swift */,
 				626520C31B73ABA10064F653 /* ConfigurationViewController.swift */,
 				62D8D2681B76286F009FA6FE /* ConfigurationTextCell.swift */,
+				620629BB1B789A320034179B /* ConfigurationValidator.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -411,9 +415,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				620629BD1B789DE50034179B /* NSData+Hex.swift in Sources */,
 				62D8D2691B76286F009FA6FE /* ConfigurationTextCell.swift in Sources */,
 				62A427511B5A3C9700BB4AD9 /* AppDelegate.swift in Sources */,
 				626520C41B73ABA10064F653 /* ConfigurationViewController.swift in Sources */,
+				620629BC1B789A320034179B /* ConfigurationValidator.swift in Sources */,
 				626520C21B73AB890064F653 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
