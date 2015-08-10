@@ -9,6 +9,8 @@
 import UIKit
 import NetworkExtension
 
+let kTunnelProviderBundle = "clowwindy.ShadowVPN.tunnel"
+
 class MainViewController: UITableViewController {
     
     var vpnManagers = [NETunnelProviderManager]()
@@ -146,7 +148,7 @@ class MainViewController: UITableViewController {
         let manager = NETunnelProviderManager()
         manager.loadFromPreferencesWithCompletionHandler { (error) -> Void in
             let providerProtocol = NETunnelProviderProtocol()
-            providerProtocol.providerBundleIdentifier = "clowwindy.ShadowVPN.tunnel"
+            providerProtocol.providerBundleIdentifier = kTunnelProviderBundle
             providerProtocol.providerConfiguration = [String: AnyObject]()
             manager.protocolConfiguration = providerProtocol
             
@@ -165,11 +167,14 @@ class MainViewController: UITableViewController {
             guard let vpnManagers = newManagers else { return }
             self.vpnManagers.removeAll()
             for vpnManager in vpnManagers {
-                // TODO filter ShadowVPN
-                if vpnManager.enabled {
-                    self.currentVPNManager = vpnManager
+                if let providerProtocol = vpnManager.protocolConfiguration as? NETunnelProviderProtocol {
+                    if providerProtocol.providerBundleIdentifier == kTunnelProviderBundle {
+                        if vpnManager.enabled {
+                            self.currentVPNManager = vpnManager
+                        }
+                        self.vpnManagers.append(vpnManager)
+                    }
                 }
-                self.vpnManagers.append(vpnManager)
             }
             self.vpnStatusSwitch.enabled = vpnManagers.count > 0
             self.tableView.reloadData()
