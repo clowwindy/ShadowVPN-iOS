@@ -26,11 +26,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: port), fromEndpoint: nil)
                 self.pendingStartCompletion = completionHandler
                 NSLog("test3")
+                chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
                 if let userTokenString = conf["usertoken"] as? String {
                     if userTokenString.characters.count == 16 {
                         userToken = NSData.fromHexString(userTokenString)
                         NSLog("test4")
-                        chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
                     }
                 }
                 self.updateNetwork()

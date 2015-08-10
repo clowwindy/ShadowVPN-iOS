@@ -46,7 +46,7 @@ class ConfigurationValidator: NSObject {
         // 4. usertoken must be empty or hex of 8 bytes
         if configuration["usertoken"] != nil {
             if let usertoken = configuration["usertoken"] as? String {
-                if NSData.fromHexString(usertoken).length != 8 {
+                if NSData.fromHexString(usertoken).length != 8 && NSData.fromHexString(usertoken).length != 0 {
                     return "Usertoken must be HEX of 8 bytes (example: 7e335d67f1dc2c01)"
                 }
             }

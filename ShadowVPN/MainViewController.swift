@@ -25,8 +25,8 @@ class MainViewController: UITableViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("VPNStatusDidChange:"), name: NEVPNStatusDidChangeNotification, object: nil)
         vpnStatusSwitch.addTarget(self, action: "vpnStatusSwitchValueDidChange:", forControlEvents: .ValueChanged)
-        vpnStatusLabel.textAlignment = .Right
-        vpnStatusLabel.textColor = UIColor.grayColor()
+//        vpnStatusLabel.textAlignment = .Right
+//        vpnStatusLabel.textColor = UIColor.grayColor()
     }
     
     deinit {

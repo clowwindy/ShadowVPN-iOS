@@ -28,6 +28,7 @@ class ConfigurationViewController: UITableViewController {
         for (k, v) in self.bindMap {
             self.configuration[k] = v.text
         }
+        self.configuration["route"] = "chnroutes"
     }
     
     func save() {
@@ -64,7 +65,7 @@ class ConfigurationViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 10
+            return 9
         case 1:
             return 1
         default:
@@ -99,6 +100,7 @@ class ConfigurationViewController: UITableViewController {
             case 3:
                 cell.textLabel?.text = "Password"
                 cell.textField.placeholder = "Required"
+                cell.textField.text = ""
                 cell.textField.secureTextEntry = true
                 cell.textField.autocapitalizationType = .None
                 cell.textField.autocorrectionType = .No
@@ -106,7 +108,7 @@ class ConfigurationViewController: UITableViewController {
             case 4:
                 cell.textLabel?.text = "User Token"
                 cell.textField.placeholder = "Optional"
-                cell.textField.text = "7e335d67f1dc2c01"
+                cell.textField.text = ""
                 cell.textField.autocapitalizationType = .None
                 cell.textField.autocorrectionType = .No
                 bindData(cell.textField, property: "usertoken")
@@ -167,7 +169,7 @@ class ConfigurationViewController: UITableViewController {
                 let dataSource = SimpleTableViewSource(labels: ["Default", "CHNRoutes"], values: ["default", "chnroutes"], initialValue: "chnroutes", selectionBlock: { (result) -> Void in
                     // else we'll lost unsaved modifications
                     self.updateConfiguration()
-                    self.configuration["chnroutes"] = result
+                    self.configuration["route"] = result
                     self.tableView.reloadData()
                 })
                 let controller = UIViewController()
