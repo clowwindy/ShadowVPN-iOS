@@ -27,21 +27,24 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 userToken = NSData.fromHexString(userTokenString)
             }
         }
+        NSLog("setPassword")
+        SVCrypto.setPassword(conf["password"] as! String)
         self.recreateUDP()
         self.updateNetwork()
     }
     
     func recreateUDP() {
-        if let session = session {
-            session.cancel()
+        self.reasserting = true
+        if session != nil {
+            self.session = nil
         }
         if let serverAddress = self.protocolConfiguration.serverAddress {
             if let port = conf["port"] as? String {
                 NSLog("recreateUDP")
                 self.session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: port), fromEndpoint: nil)
+                self.updateNetwork()
+                self.reasserting = false
             }
-        } else {
-            self.pendingStartCompletion!(NSError(domain:"PacketTunnelProviderDomain", code:-1, userInfo:[NSLocalizedDescriptionKey:"Configuration is missing serverAddress"]))
         }
     }
     
@@ -67,8 +70,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             NSLog("using DNS")
             newSettings.DNSSettings = NEDNSSettings(servers: (conf["dns"] as! String).componentsSeparatedByString(","))
         }
-        NSLog("setPassword")
-        SVCrypto.setPassword(conf["password"] as! String)
         NSLog("setTunnelNetworkSettings")
         self.setTunnelNetworkSettings(newSettings) { (error: NSError?) -> Void in
             NSLog("readPacketsFromTUN")
@@ -102,6 +103,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                     if let error = error {
                         NSLog("%@", error)
                         self.recreateUDP()
+                        return
                     }
                 })
             }
@@ -125,7 +127,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 protocols.append(2)
             }
             self.packetFlow.writePackets(decryptedPackets, withProtocols: protocols)
-            }, maxDatagrams: 1024)
+            }, maxDatagrams: NSIntegerMax)
     }
     
     override func stopTunnelWithReason(reason: NEProviderStopReason, completionHandler: () -> Void) {
