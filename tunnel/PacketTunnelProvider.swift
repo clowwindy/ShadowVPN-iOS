@@ -93,7 +93,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             //        self.log("protocol: " + p.stringValue)
             //      }
             for packet in packets {
-                NSLog("TUN: %d", packet.length)
+//                NSLog("TUN: %d", packet.length)
                 self.session?.writeDatagram(SVCrypto.encryptWithData(packet, userToken: self.userToken), completionHandler: { (error: NSError?) -> Void in
                 })
             }
@@ -109,10 +109,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             var protocols = [NSNumber]()
             var decryptedPackets = [NSData]()
             for packet in packets {
-                NSLog("UDP: %d", packet.length)
+//                NSLog("UDP: %d", packet.length)
                 // currently IPv4 only
                 let decrypted = SVCrypto.decryptWithData(packet, userToken: self.userToken)
-                NSLog("write to TUN: %d", decrypted.length)
+//                NSLog("write to TUN: %d", decrypted.length)
                 decryptedPackets.append(decrypted)
                 protocols.append(2)
             }
