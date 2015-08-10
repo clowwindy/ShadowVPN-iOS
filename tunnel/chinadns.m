@@ -134,6 +134,8 @@ static int remote_sock;
 
 static void usage(void);
 
+static int recreate_remote_sock();
+
 #define LOG(s...) NSLog(@s)
 #define DLOG(s...)
 #define ERR(s) NSLog(@s)
@@ -188,6 +190,12 @@ int chinadns_main(int argc, char **argv) {
       dns_handle_local();
     if (FD_ISSET(remote_sock, &readset))
       dns_handle_remote();
+    
+      if (remote_recreate_required) {
+          remote_recreate_required = 0;
+          LOG("recreating ChinaDNS remote socket");
+          recreate_remote_sock();
+      }
   }
   return EXIT_SUCCESS;
 }

@@ -12,4 +12,6 @@
 
 - (instancetype)initWithDNS:(NSString *)dns;
 
++ (BOOL)checkWiFiNetwork;
+
 @end

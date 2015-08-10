@@ -15,10 +15,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var userToken: NSData?
     var chinaDNS: ChinaDNSRunner?
     var routeManager: RouteManager?
-    var queue: dispatch_queue_t?
+    var wifi = ChinaDNSRunner.checkWiFiNetwork()
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
-        queue = dispatch_queue_create("shadowvpn.vpn", DISPATCH_QUEUE_SERIAL)
         conf = (self.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!
         self.pendingStartCompletion = completionHandler
         chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
@@ -106,6 +105,14 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                         return
                     }
                 })
+            }
+            
+            let wifi = ChinaDNSRunner.checkWiFiNetwork()
+            if wifi != self.wifi {
+                NSLog("Wi-Fi status changed")
+                self.wifi = wifi
+                self.recreateUDP()
+                return
             }
             self.readPacketsFromTUN()
         }
