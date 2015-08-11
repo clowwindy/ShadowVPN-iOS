@@ -19,7 +19,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var queue: dispatch_queue_t?
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
-        queue = dispatch_queue_create("shadowvpn.queue", nil)
+        queue = dispatch_queue_create("shadowvpn.queue", DISPATCH_QUEUE_SERIAL)
         conf = (self.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!
         self.pendingStartCompletion = completionHandler
         chinaDNS = ChinaDNSRunner(DNS: conf["dns"] as? String)
@@ -31,16 +31,18 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         NSLog("setPassword")
         SVCrypto.setPassword(conf["password"] as! String)
         self.recreateUDP()
+        let keyPath = "defaultPath"
+        let options = NSKeyValueObservingOptions([.New, .Old])
+        self.addObserver(self, forKeyPath: keyPath, options: options, context: nil)
     }
     
     func recreateUDP() {
-//        var t = dispatch_time_t(0)
         if self.session != nil {
-//            t = 10000000000
             self.reasserting = true
+            self.session?.cancel()
+            self.session = nil
         }
         dispatch_async(queue!) { () -> Void in
-            self.session = nil
             if let serverAddress = self.protocolConfiguration.serverAddress {
                 if let port = self.conf["port"] as? String {
                     self.setTunnelNetworkSettings(nil) { (error: NSError?) -> Void in
@@ -58,11 +60,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 }
             }
         }
-    }
-    
-    func log(data: String) {
-        self.session?.writeDatagram(data.dataUsingEncoding(NSUTF8StringEncoding)!, completionHandler: { (error: NSError?) -> Void in
-        })
     }
     
     func updateNetwork() {
@@ -114,18 +111,10 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 self.session?.writeDatagram(SVCrypto.encryptWithData(packet, userToken: self.userToken), completionHandler: { (error: NSError?) -> Void in
                     if let error = error {
                         NSLog("%@", error)
-                        self.recreateUDP()
-                        return
+//                        self.recreateUDP()
+//                        return
                     }
                 })
-            }
-            
-            let wifi = ChinaDNSRunner.checkWiFiNetwork()
-            if wifi != self.wifi {
-                NSLog("Wi-Fi status changed")
-                self.wifi = wifi
-                self.recreateUDP()
-                return
             }
             self.readPacketsFromTUN()
         }
@@ -150,9 +139,28 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             }, maxDatagrams: NSIntegerMax)
     }
     
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if let object = object {
+            if object as! NSObject == self {
+                if let keyPath = keyPath {
+                    if keyPath == "defaultPath" {
+                        let wifi = ChinaDNSRunner.checkWiFiNetwork()
+                        if wifi != self.wifi {
+                            NSLog("Wi-Fi status changed")
+                            self.wifi = wifi
+                            self.recreateUDP()
+                            return
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+    
     override func stopTunnelWithReason(reason: NEProviderStopReason, completionHandler: () -> Void) {
         // Add code here to start the process of stopping the tunnel
-        self.log("stopTunnelWithReason")
+        NSLog("stopTunnelWithReason")
         session?.cancel()
         completionHandler()
         super.stopTunnelWithReason(reason, completionHandler: completionHandler)
