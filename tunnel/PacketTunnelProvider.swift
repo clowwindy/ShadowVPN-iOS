@@ -15,7 +15,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     var userToken: NSData?
     var chinaDNS: ChinaDNSRunner?
     var routeManager: RouteManager?
-    var wifi = ChinaDNSRunner.checkWiFiNetwork()
+//    var wifi = ChinaDNSRunner.checkWiFiNetwork()
     var queue: dispatch_queue_t?
     
     override func startTunnelWithOptions(options: [String : NSObject]?, completionHandler: (NSError?) -> Void) {
@@ -46,6 +46,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         dispatch_async(queue!) { () -> Void in
             if let serverAddress = self.protocolConfiguration.serverAddress {
                 if let port = self.conf["port"] as? String {
+                    self.reasserting = false
                     self.setTunnelNetworkSettings(nil) { (error: NSError?) -> Void in
                         if let error = error {
                             NSLog("%@", error)
@@ -88,7 +89,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 //        self.log("completion")
                 NSLog("%@", String(error))
                 NSLog("VPN started")
-                self.reasserting = false
                 completionHandler(error)
                 if error != nil {
                     // simply kill the extension process
@@ -143,10 +143,11 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
             if object as! NSObject == self {
                 if let keyPath = keyPath {
                     if keyPath == "defaultPath" {
-                        let wifi = ChinaDNSRunner.checkWiFiNetwork()
+                        // commented out since when switching from 4G to Wi-Fi, this will be called multiple times, only the last time works
+//                        let wifi = ChinaDNSRunner.checkWiFiNetwork()
 //                        if wifi != self.wifi {
                             NSLog("Wi-Fi status changed")
-                            self.wifi = wifi
+//                            self.wifi = wifi
                             self.recreateUDP()
 //                            return
 //                        }
