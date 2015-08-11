@@ -34,6 +34,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         let keyPath = "defaultPath"
         let options = NSKeyValueObservingOptions([.New, .Old])
         self.addObserver(self, forKeyPath: keyPath, options: options, context: nil)
+        NSLog("readPacketsFromTUN")
+        self.readPacketsFromTUN()
     }
     
     func recreateUDP() {
@@ -53,7 +55,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                             NSLog("recreateUDP")
                             self.session = self.createUDPSessionToEndpoint(NWHostEndpoint(hostname: serverAddress, port: port), fromEndpoint: nil)
                             self.updateNetwork()
-                            self.reasserting = false
                         }
                     }
                 }
@@ -80,8 +81,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         }
         NSLog("setTunnelNetworkSettings")
         self.setTunnelNetworkSettings(newSettings) { (error: NSError?) -> Void in
-            NSLog("readPacketsFromTUN")
-            self.readPacketsFromTUN()
             self.readPacketsFromUDP()
             NSLog("readPacketsFromUDP")
             if let completionHandler = self.pendingStartCompletion {
@@ -89,6 +88,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 //        self.log("completion")
                 NSLog("%@", String(error))
                 NSLog("VPN started")
+                self.reasserting = false
                 completionHandler(error)
                 if error != nil {
                     // simply kill the extension process
