@@ -50,6 +50,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                     self.setTunnelNetworkSettings(nil) { (error: NSError?) -> Void in
                         if let error = error {
                             NSLog("%@", error)
+                            // simply kill the extension process since it does no harm and ShadowVPN is expected to be always on
                             exit(1)
                         }
                         dispatch_async(self.queue!) { () -> Void in
@@ -91,8 +92,8 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 NSLog("VPN started")
                 completionHandler(error)
                 if error != nil {
-                    // simply kill the extension process
-                    exit(0)
+                    // simply kill the extension process since it does no harm and ShadowVPN is expected to be always on
+                    exit(1)
                 }
             }
         }
@@ -101,10 +102,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     func readPacketsFromTUN() {
         self.packetFlow.readPacketsWithCompletionHandler {
             packets, protocols in
-            //      self.log("readPacketsWithCompletionHandler")
-            //      for p in protocols {
-            //        self.log("protocol: " + p.stringValue)
-            //      }
             for packet in packets {
 //                NSLog("TUN: %d", packet.length)
                 self.session?.writeDatagram(SVCrypto.encryptWithData(packet, userToken: self.userToken), completionHandler: { (error: NSError?) -> Void in
@@ -164,7 +161,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         session?.cancel()
         completionHandler()
         super.stopTunnelWithReason(reason, completionHandler: completionHandler)
-        // simply kill the extension process
+        // simply kill the extension process since it does no harm and ShadowVPN is expected to be always on
         exit(0)
     }
     
