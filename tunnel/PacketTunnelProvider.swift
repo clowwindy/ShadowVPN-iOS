@@ -144,12 +144,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 if let keyPath = keyPath {
                     if keyPath == "defaultPath" {
                         let wifi = ChinaDNSRunner.checkWiFiNetwork()
-                        if wifi != self.wifi {
+//                        if wifi != self.wifi {
                             NSLog("Wi-Fi status changed")
                             self.wifi = wifi
                             self.recreateUDP()
-                            return
-                        }
+//                            return
+//                        }
 
                     }
                 }
