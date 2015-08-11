@@ -39,7 +39,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     func recreateUDP() {
         if self.session != nil {
             self.reasserting = true
-            self.session?.cancel()
             self.session = nil
         }
         dispatch_async(queue!) { () -> Void in
