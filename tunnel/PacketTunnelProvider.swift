@@ -51,7 +51,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                         if let error = error {
                             NSLog("%@", error)
                             // simply kill the extension process since it does no harm and ShadowVPN is expected to be always on
-                            exit(1)
+//                            exit(1)
                         }
                         dispatch_async(self.queue!) { () -> Void in
                             NSLog("recreateUDP")
