@@ -7,9 +7,9 @@ Features
 - Stateless VPN
 - Server NAT support
 - CHNRoutes
-- ChinaDNS
+- [ChinaDNS](https://github.com/clowwindy/ChinaDNS)
 
-Work in progress. Checkout the [development plan](https://github.com/clowwindy/ShadowVPNiOS/issues).
+Work in progress. Checkout the [development plan](https://github.com/clowwindy/ShadowVPN-iOS/issues/8).
 
 Please contact us if you're interested in [testing the alpha version](https://github.com/clowwindy/ShadowVPN-iOS/wiki/How-To-Test-Beta-Version).
 
