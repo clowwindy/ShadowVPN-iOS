@@ -10,7 +10,7 @@
 #import "crypto.h"
 
 static const int max_mtu = 2048;
-static const int buf_size = max_mtu + SHADOWVPN_ZERO_BYTES + SHADOWVPN_USERTOKEN_LEN;
+static const int sv_buf_size = max_mtu + SHADOWVPN_ZERO_BYTES + SHADOWVPN_USERTOKEN_LEN;
 
 static NSString *kTunBufKey = @"SVTunBuf";
 static NSString *kUdpBufKey = @"SVUdpBuf";
@@ -28,7 +28,7 @@ static NSString *kUdpBufKey = @"SVUdpBuf";
 + (NSMutableData *)tunbuf {
     NSMutableData *buf = [[NSThread currentThread] threadDictionary][kTunBufKey];
     if (buf == nil) {
-        buf = [[NSMutableData alloc] initWithLength:buf_size];
+        buf = [[NSMutableData alloc] initWithLength:sv_buf_size];
         [[NSThread currentThread] threadDictionary][kTunBufKey] = buf;
     }
     return buf;
@@ -37,7 +37,7 @@ static NSString *kUdpBufKey = @"SVUdpBuf";
 + (NSMutableData *)udpbuf {
     NSMutableData *buf = [[NSThread currentThread] threadDictionary][kUdpBufKey];
     if (buf == nil) {
-        buf = [[NSMutableData alloc] initWithLength:buf_size];
+        buf = [[NSMutableData alloc] initWithLength:sv_buf_size];
         [[NSThread currentThread] threadDictionary][kUdpBufKey] = buf;
     }
     return buf;
