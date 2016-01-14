@@ -8,6 +8,10 @@
 
 import NetworkExtension
 
+
+let groupBundle = "group.VPNCare.shadowVPN"
+
+
 class PacketTunnelProvider: NEPacketTunnelProvider {
     var session: NWUDPSession? = nil
     var conf = [String: AnyObject]()
@@ -36,6 +40,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         self.addObserver(self, forKeyPath: keyPath, options: options, context: nil)
         NSLog("readPacketsFromTUN")
         self.readPacketsFromTUN()
+        
+        // shared vpn connect status for today widget
+        self.shareConnectStateWithNSUserDefaults(vpnState: true)
     }
     
     func recreateUDP() {
@@ -93,6 +100,7 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
                 completionHandler(error)
                 if error != nil {
                     // simply kill the extension process since it does no harm and ShadowVPN is expected to be always on
+                    NSLog("%@", error!)
                     exit(1)
                 }
             }
@@ -162,6 +170,9 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
         completionHandler()
         super.stopTunnelWithReason(reason, completionHandler: completionHandler)
         // simply kill the extension process since it does no harm and ShadowVPN is expected to be always on
+        
+        // shared vpn connect status for today widget
+        self.shareConnectStateWithNSUserDefaults(vpnState: false)
         exit(0)
     }
     
@@ -179,5 +190,12 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
     
     override func wake() {
         // Add code here to wake up
+    }
+    
+    func shareConnectStateWithNSUserDefaults(vpnState state: Bool) {
+        // shared vpn connect status for today widget
+        let shared = NSUserDefaults(suiteName: groupBundle)
+        shared?.setBool(state, forKey: "vpnState")
+        // shared?.synchronize()
     }
 }

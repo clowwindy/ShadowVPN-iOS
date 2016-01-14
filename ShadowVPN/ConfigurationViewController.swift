@@ -10,7 +10,13 @@ import UIKit
 import NetworkExtension
 
 
-class ConfigurationViewController: UITableViewController {
+
+protocol QRCodeWriteBackDelegate {
+    func writeBack(configuration config: [String: AnyObject])
+}
+
+
+class ConfigurationViewController: UITableViewController, QRCodeWriteBackDelegate {
     var providerManager: NETunnelProviderManager?
     var bindMap = [String: UITextField]()
     var configuration = [String: AnyObject]()
@@ -18,10 +24,11 @@ class ConfigurationViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "save")
-        self.title = providerManager?.protocolConfiguration?.serverAddress
+        // self.title = providerManager?.protocolConfiguration?.serverAddress
         let conf:NETunnelProviderProtocol = self.providerManager?.protocolConfiguration as! NETunnelProviderProtocol
         // Dictionary in Swift is a struct. This is a copy
         self.configuration = conf.providerConfiguration!
+        self.title = self.configuration["description"] as? String
     }
     
     func updateConfiguration() {
@@ -43,7 +50,8 @@ class ConfigurationViewController: UITableViewController {
         }
         (self.providerManager?.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration = self.configuration
         self.providerManager?.protocolConfiguration?.serverAddress = self.configuration["server"] as? String
-        self.providerManager?.localizedDescription = self.configuration["server"] as? String
+        // self.providerManager?.localizedDescription = self.configuration["server"] as? String
+        self.providerManager?.localizedDescription = self.configuration["description"] as? String
         
         self.providerManager?.saveToPreferencesWithCompletionHandler { (error) -> Void in
             self.navigationController?.popViewControllerAnimated(true)
@@ -67,7 +75,7 @@ class ConfigurationViewController: UITableViewController {
         case 0:
             return 10
         case 1:
-            return 1
+            return 2
         default:
             return 0
         }
@@ -157,8 +165,17 @@ class ConfigurationViewController: UITableViewController {
             return cell
         case 1:
             let cell = UITableViewCell()
-            cell.textLabel?.text = "Delete This Configuration"
-            cell.textLabel?.textColor = UIColor.redColor()
+            
+            switch indexPath.row {
+            case 0:
+                cell.textLabel?.text = "Scan From QRCode"
+                cell.textLabel?.textColor = UIColor.blueColor()
+            case 1:
+                cell.textLabel?.text = "Delete This Configuration"
+                cell.textLabel?.textColor = UIColor.redColor()
+            default:
+                break
+            }
             return cell
         default:
             return UITableViewCell()
@@ -178,18 +195,30 @@ class ConfigurationViewController: UITableViewController {
                 self.navigationController?.pushViewController(controller, animated: true)
             }
         } else if (indexPath.section == 1) {
-            let alertController = UIAlertController(title: nil, message: "Delete this configuration?", preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
-                self.providerManager?.removeFromPreferencesWithCompletionHandler({ (error) -> Void in
-                    self.navigationController?.popViewControllerAnimated(true)
+            if indexPath.row == 0 {
+                let qrScannerVC = QRCodeReaderVC()
+                qrScannerVC.delegate = self
+                // self.presentViewController(qrScannerVC, animated: true, completion: nil)
+                self.navigationController?.pushViewController(qrScannerVC, animated: true)
+            } else {
+                let alertController = UIAlertController(title: nil, message: "Delete this configuration?", preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { (action) -> Void in
+                    self.providerManager?.removeFromPreferencesWithCompletionHandler({ (error) -> Void in
+                        self.navigationController?.popViewControllerAnimated(true)
+                    })
+                }))
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+                }))
+                self.presentViewController(alertController, animated: true, completion: { () -> Void in
                 })
-            }))
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
-            }))
-            self.presentViewController(alertController, animated: true, completion: { () -> Void in
-            })
+            }
         }
     }
     
+    
+    func writeBack(configuration config: [String: AnyObject]) {
+        self.configuration = config
+        self.tableView.reloadData()
+    }
 
 }

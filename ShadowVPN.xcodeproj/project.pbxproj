@@ -21,8 +21,8 @@
 		62A427511B5A3C9700BB4AD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A427501B5A3C9700BB4AD9 /* AppDelegate.swift */; };
 		62A427581B5A3C9700BB4AD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62A427571B5A3C9700BB4AD9 /* Assets.xcassets */; };
 		62A4275B1B5A3C9700BB4AD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62A427591B5A3C9700BB4AD9 /* LaunchScreen.storyboard */; };
-		62A427671B5A3E2500BB4AD9 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */; };
 		62A427721B5A3ED800BB4AD9 /* PacketTunnelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A427711B5A3ED800BB4AD9 /* PacketTunnelProvider.swift */; };
+		62A427761B5A3ED800BB4AD9 /* tunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		62D8D2691B76286F009FA6FE /* ConfigurationTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D2681B76286F009FA6FE /* ConfigurationTextCell.swift */; };
 		62D8D26B1B771B63009FA6FE /* NSData+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26A1B771B63009FA6FE /* NSData+Hex.swift */; };
 		62D8D2701B772C5A009FA6FE /* RouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D26F1B772C5A009FA6FE /* RouteManager.swift */; };
@@ -31,7 +31,14 @@
 		62D8D29E1B77433E009FA6FE /* ChinaDNSRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 62D8D29D1B77433E009FA6FE /* ChinaDNSRunner.m */; };
 		62D8D2A01B7748CA009FA6FE /* iplist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 62D8D29F1B7748CA009FA6FE /* iplist.txt */; };
 		62D8D2A21B774A2F009FA6FE /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 62D8D2A11B774A2F009FA6FE /* libresolv.tbd */; };
-		62F7E9891BB58DBE007A19E7 /* tunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D8263B671C536C5600C02E9A /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8263B661C536C5600C02E9A /* NetworkExtension.framework */; };
+		D8263BA51C53728D00C02E9A /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8263B661C536C5600C02E9A /* NetworkExtension.framework */; };
+		D84E687C1C4B4FA50046A7AF /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D878A7AE1C491DE200843C21 /* NotificationCenter.framework */; };
+		D84E687F1C4B4FA50046A7AF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84E687E1C4B4FA50046A7AF /* TodayViewController.swift */; };
+		D84E68821C4B4FA50046A7AF /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D84E68801C4B4FA50046A7AF /* MainInterface.storyboard */; };
+		D84E68861C4B4FA50046A7AF /* TodayWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D84E687B1C4B4FA50046A7AF /* TodayWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D876D5401C6B683F0017B3AB /* QRCodeReaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876D53F1C6B683F0017B3AB /* QRCodeReaderVC.swift */; };
+		D876D5451C6C64FA0017B3AB /* QRCodeShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D876D5441C6C64FA0017B3AB /* QRCodeShareVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +49,13 @@
 			remoteGlobalIDString = 62A4276C1B5A3ED800BB4AD9;
 			remoteInfo = tunnel;
 		};
+		D84E68841C4B4FA50046A7AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 62A427451B5A3C9700BB4AD9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D84E687A1C4B4FA50046A7AF;
+			remoteInfo = TodayWidget;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,7 +65,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				62F7E9891BB58DBE007A19E7 /* tunnel.appex in Embed App Extensions */,
+				D84E68861C4B4FA50046A7AF /* TodayWidget.appex in Embed App Extensions */,
+				62A427761B5A3ED800BB4AD9 /* tunnel.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,7 +96,6 @@
 		62A427571B5A3C9700BB4AD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62A4275A1B5A3C9700BB4AD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		62A4275C1B5A3C9700BB4AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		62A427681B5A3E2500BB4AD9 /* ShadowVPN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ShadowVPN.entitlements; sourceTree = "<group>"; };
 		62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = tunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		62A427701B5A3ED800BB4AD9 /* tunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = tunnel.entitlements; sourceTree = "<group>"; };
@@ -97,6 +111,15 @@
 		62D8D29D1B77433E009FA6FE /* ChinaDNSRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChinaDNSRunner.m; sourceTree = "<group>"; };
 		62D8D29F1B7748CA009FA6FE /* iplist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iplist.txt; sourceTree = "<group>"; };
 		62D8D2A11B774A2F009FA6FE /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		D8263B661C536C5600C02E9A /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		D84E687B1C4B4FA50046A7AF /* TodayWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TodayWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D84E687E1C4B4FA50046A7AF /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		D84E68811C4B4FA50046A7AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D84E68831C4B4FA50046A7AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D84E688A1C4B4FB00046A7AF /* TodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TodayWidget.entitlements; sourceTree = "<group>"; };
+		D876D53F1C6B683F0017B3AB /* QRCodeReaderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeReaderVC.swift; sourceTree = "<group>"; };
+		D876D5441C6C64FA0017B3AB /* QRCodeShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeShareVC.swift; sourceTree = "<group>"; };
+		D878A7AE1C491DE200843C21 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		F8715C8B6D2ECED571986A72 /* Pods-tunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-tunnel/Pods-tunnel.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62A427671B5A3E2500BB4AD9 /* NetworkExtension.framework in Frameworks */,
+				D8263B671C536C5600C02E9A /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +137,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				62D8D2A21B774A2F009FA6FE /* libresolv.tbd in Frameworks */,
+				D8263BA51C53728D00C02E9A /* NetworkExtension.framework in Frameworks */,
 				5EA8D9810A0C84460A50A3DA /* libPods-tunnel.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D84E68781C4B4FA50046A7AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D84E687C1C4B4FA50046A7AF /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,9 +156,10 @@
 		486E76D16A13A84BC2514505 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8263B661C536C5600C02E9A /* NetworkExtension.framework */,
 				62D8D2A11B774A2F009FA6FE /* libresolv.tbd */,
-				62A427661B5A3E2500BB4AD9 /* NetworkExtension.framework */,
 				5FC75A2A2AB75447D9D64CB9 /* libPods-tunnel.a */,
+				D878A7AE1C491DE200843C21 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,6 +192,7 @@
 			children = (
 				62A4274F1B5A3C9700BB4AD9 /* ShadowVPN */,
 				62A4276E1B5A3ED800BB4AD9 /* tunnel */,
+				D84E687D1C4B4FA50046A7AF /* TodayWidget */,
 				62A4274E1B5A3C9700BB4AD9 /* Products */,
 				C8337FA84DBF382377A3AB97 /* Pods */,
 				486E76D16A13A84BC2514505 /* Frameworks */,
@@ -170,6 +204,7 @@
 			children = (
 				62A4274D1B5A3C9700BB4AD9 /* ShadowVPN.app */,
 				62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */,
+				D84E687B1C4B4FA50046A7AF /* TodayWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,6 +250,8 @@
 				626520C31B73ABA10064F653 /* ConfigurationViewController.swift */,
 				62D8D2681B76286F009FA6FE /* ConfigurationTextCell.swift */,
 				620629BB1B789A320034179B /* ConfigurationValidator.swift */,
+				D876D53F1C6B683F0017B3AB /* QRCodeReaderVC.swift */,
+				D876D5441C6C64FA0017B3AB /* QRCodeShareVC.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -270,6 +307,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D84E687D1C4B4FA50046A7AF /* TodayWidget */ = {
+			isa = PBXGroup;
+			children = (
+				D84E688A1C4B4FB00046A7AF /* TodayWidget.entitlements */,
+				D84E687E1C4B4FA50046A7AF /* TodayViewController.swift */,
+				D84E68801C4B4FA50046A7AF /* MainInterface.storyboard */,
+				D84E68831C4B4FA50046A7AF /* Info.plist */,
+			);
+			path = TodayWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -286,6 +334,7 @@
 			);
 			dependencies = (
 				6228E95C1B775DDB00581B0F /* PBXTargetDependency */,
+				D84E68851C4B4FA50046A7AF /* PBXTargetDependency */,
 			);
 			name = ShadowVPN;
 			productName = ShadowVPN;
@@ -311,19 +360,36 @@
 			productReference = 62A4276D1B5A3ED800BB4AD9 /* tunnel.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		D84E687A1C4B4FA50046A7AF /* TodayWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D84E68871C4B4FA50046A7AF /* Build configuration list for PBXNativeTarget "TodayWidget" */;
+			buildPhases = (
+				D84E68771C4B4FA50046A7AF /* Sources */,
+				D84E68781C4B4FA50046A7AF /* Frameworks */,
+				D84E68791C4B4FA50046A7AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TodayWidget;
+			productName = TodayWidget;
+			productReference = D84E687B1C4B4FA50046A7AF /* TodayWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		62A427451B5A3C9700BB4AD9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = clowwindy;
 				TargetAttributes = {
 					62A4274C1B5A3C9700BB4AD9 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = LND7PS23X9;
+						DevelopmentTeam = GWY8C3DWHJ;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -338,7 +404,27 @@
 					};
 					62A4276C1B5A3ED800BB4AD9 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = LND7PS23X9;
+						DevelopmentTeam = GWY8C3DWHJ;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.VPNLite = {
+								enabled = 1;
+							};
+						};
+					};
+					D84E687A1C4B4FA50046A7AF = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GWY8C3DWHJ;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -357,6 +443,7 @@
 			targets = (
 				62A4274C1B5A3C9700BB4AD9 /* ShadowVPN */,
 				62A4276C1B5A3ED800BB4AD9 /* tunnel */,
+				D84E687A1C4B4FA50046A7AF /* TodayWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -382,6 +469,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D84E68791C4B4FA50046A7AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D84E68821C4B4FA50046A7AF /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -397,7 +492,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\"${SRCROOT}/Pods/Target Support Files/Pods-tunnel/Pods-tunnel-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tunnel/Pods-tunnel-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E4EB07B6CDD86D9D38054741 /* Check Pods Manifest.lock */ = {
@@ -423,7 +518,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				620629BD1B789DE50034179B /* NSData+Hex.swift in Sources */,
+				D876D5401C6B683F0017B3AB /* QRCodeReaderVC.swift in Sources */,
 				62D8D2691B76286F009FA6FE /* ConfigurationTextCell.swift in Sources */,
+				D876D5451C6C64FA0017B3AB /* QRCodeShareVC.swift in Sources */,
 				623DE1E61B78AAB200B1440F /* SimpleTableViewController.m in Sources */,
 				62A427511B5A3C9700BB4AD9 /* AppDelegate.swift in Sources */,
 				626520C41B73ABA10064F653 /* ConfigurationViewController.swift in Sources */,
@@ -447,6 +544,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D84E68771C4B4FA50046A7AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D84E687F1C4B4FA50046A7AF /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -454,6 +559,11 @@
 			isa = PBXTargetDependency;
 			target = 62A4276C1B5A3ED800BB4AD9 /* tunnel */;
 			targetProxy = 6228E95B1B775DDB00581B0F /* PBXContainerItemProxy */;
+		};
+		D84E68851C4B4FA50046A7AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D84E687A1C4B4FA50046A7AF /* TodayWidget */;
+			targetProxy = D84E68841C4B4FA50046A7AF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -464,6 +574,14 @@
 				62A4275A1B5A3C9700BB4AD9 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D84E68801C4B4FA50046A7AF /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D84E68811C4B4FA50046A7AF /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -561,15 +679,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ShadowVPN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = clowwindy.ShadowVPN;
+				PRODUCT_BUNDLE_IDENTIFIER = VPNCare.ShadowVPN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8935c941-0a32-4349-8d84-158ccdcb5eff";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "ShadowVPN/ShadowVPN-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -582,14 +700,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ShadowVPN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = clowwindy.ShadowVPN;
+				PRODUCT_BUNDLE_IDENTIFIER = VPNCare.ShadowVPN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8935c941-0a32-4349-8d84-158ccdcb5eff";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "ShadowVPN/ShadowVPN-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -600,12 +718,11 @@
 				CODE_SIGN_ENTITLEMENTS = tunnel/tunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = tunnel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = clowwindy.ShadowVPN.tunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = VPNCare.ShadowVPN.tunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fd6a7b1c-eb02-4d71-a8b7-ee8d1c791d62";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/tunnel/tunnel-Bridging-Header.h";
 			};
@@ -618,14 +735,43 @@
 				CODE_SIGN_ENTITLEMENTS = tunnel/tunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = tunnel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = clowwindy.ShadowVPN.tunnel;
+				PRODUCT_BUNDLE_IDENTIFIER = VPNCare.ShadowVPN.tunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fd6a7b1c-eb02-4d71-a8b7-ee8d1c791d62";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/tunnel/tunnel-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		D84E68881C4B4FA50046A7AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TodayWidget/TodayWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TodayWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = VPNCare.ShadowVPN.TodayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D84E68891C4B4FA50046A7AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TodayWidget/TodayWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TodayWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = VPNCare.ShadowVPN.TodayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -655,6 +801,15 @@
 			buildConfigurations = (
 				62A427781B5A3ED800BB4AD9 /* Debug */,
 				62A427791B5A3ED800BB4AD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D84E68871C4B4FA50046A7AF /* Build configuration list for PBXNativeTarget "TodayWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D84E68881C4B4FA50046A7AF /* Debug */,
+				D84E68891C4B4FA50046A7AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -15,3 +15,6 @@ pod 'libsodium'
 
 end
 
+target 'TodayWidget' do
+platform:ios, '9.0'
+end
