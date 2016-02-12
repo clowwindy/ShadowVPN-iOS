@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        if url.scheme == "shadowVPN" {
+        if url.scheme == "shadowvpn" {
             NSNotificationCenter.defaultCenter().postNotificationName(enableCurrentVPNManagerVPNStateFromWidget,
                 object: nil, userInfo: ["command": url.host!])
         }

@@ -23,11 +23,13 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string></string>
 			<key>CFBundleURLName</key>
 			<string>shadowVPN.iOS</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>shadowVPN</string>
+				<string>shadowvpn</string>
 			</array>
 		</dict>
 	</array>

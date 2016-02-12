@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Photos
 
 class QRCodeShareVC: UIViewController {
     var configQuery: String?
+    var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +40,7 @@ class QRCodeShareVC: UIViewController {
     */
     
     func displayQRCodeImage() {
+        // show Image
         let query: String = self.configQuery!
         
         let filter = CIFilter(name: "CIQRCodeGenerator")
@@ -48,7 +51,7 @@ class QRCodeShareVC: UIViewController {
         let x = (self.view.bounds.width - width) / 2
         let y = (self.view.bounds.height - heigth) / 2
         
-        let imgView: UIImageView = UIImageView(frame: CGRectMake(x, y, width, heigth))
+        self.imageView = UIImageView(frame: CGRectMake(x, y, width, heigth))
         let codeImage = UIImage(CIImage: (filter?.outputImage)!.imageByApplyingTransform(CGAffineTransformMakeScale(10, 10)))
         
         let iconImage = UIImage(named: "qrcode_avatar")
@@ -65,8 +68,56 @@ class QRCodeShareVC: UIViewController {
         
         UIGraphicsEndImageContext()
         
-        imgView.image = resultImage
-        self.view.addSubview(imgView)
+        let tapGR = UITapGestureRecognizer(target: self, action: "tapImage:")
+        imageView.userInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGR)
+        
+        self.imageView.image = resultImage
+        self.view.addSubview(self.imageView)
+    }
+    
+    // func tapImage(sender: UITapGestureRecognizer) {
+    //     print("image view tapped")
+    // }
+    
+    func save() {
+        // save code image to album
+        
+        let status = PHPhotoLibrary.authorizationStatus()
+        
+        switch status {
+        case .Denied, .Restricted:
+            let alert = UIAlertController(title: "No Permission", message: "You should approve ShadowVPN to access your photos", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            let settingAction = UIAlertAction(title: "Setup", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    let settingURL = NSURL(string: UIApplicationOpenSettingsURLString)
+                    UIApplication.sharedApplication().openURL(settingURL!)
+                })
+            })
+            alert.addAction(settingAction)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            alert.addAction(cancelAction)
+            self.presentViewController(alert, animated: true, completion: nil)
+        default:
+            UIImageWriteToSavedPhotosAlbum(self.imageView.image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
+        }
+
+    }
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) {
+        if (error != nil) {
+            NSLog("%@", error!)
+        } else {
+            let alert = UIAlertController(title: "Saved", message: "Image save to Photos", preferredStyle: UIAlertControllerStyle.Alert)
+            let done = UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction) -> Void in
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            })
+            alert.addAction(done)
+            self.presentViewController(alert, animated: true, completion: nil)
+            NSLog("saved image to album")
+        }
     }
 
 }
