@@ -68,9 +68,9 @@ class QRCodeShareVC: UIViewController {
         
         UIGraphicsEndImageContext()
         
-        let tapGR = UITapGestureRecognizer(target: self, action: "tapImage:")
-        imageView.userInteractionEnabled = true
-        imageView.addGestureRecognizer(tapGR)
+        // let tapGR = UITapGestureRecognizer(target: self, action: "tapImage:")
+        // imageView.userInteractionEnabled = true
+        // imageView.addGestureRecognizer(tapGR)
         
         self.imageView.image = resultImage
         self.view.addSubview(self.imageView)

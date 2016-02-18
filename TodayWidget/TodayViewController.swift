@@ -96,7 +96,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func statusSwitchValueChanged(sender: UISwitch) {
-        let urlSchema = "shadowVPN"
+        let urlSchema = "shadowvpn"
         var host: String
         if sender.on {
             host = "start"
