@@ -47,6 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        if url.scheme == "shadowvpn" {
+            NSNotificationCenter.defaultCenter().postNotificationName(enableCurrentVPNManagerVPNStateFromWidget,
+                object: nil, userInfo: ["command": url.host!])
+        }
+        return true
+    }
+    
     
 }
 

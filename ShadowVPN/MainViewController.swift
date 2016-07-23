@@ -9,12 +9,19 @@
 import UIKit
 import NetworkExtension
 
-let kTunnelProviderBundle = "clowwindy.ShadowVPN.tunnel"
+let kTunnelProviderBundle = "VPNCare.ShadowVPN.tunnel"
+let enableCurrentVPNManagerVPNStateFromWidget = "VPNCare.ShadowVPN.enableCurrentVPNManagerVPNStateFromWidget"
+let groupBundle = "group.VPNCare.shadowVPN"
+
 
 class MainViewController: UITableViewController {
     
     var vpnManagers = [NETunnelProviderManager]()
-    var currentVPNManager: NETunnelProviderManager?
+    var currentVPNManager: NETunnelProviderManager? {
+        didSet {
+            self.shareVPNDescriptionToUserDefauls(currentVPNManager!)
+        }
+    }
     var vpnStatusSwitch = UISwitch()
     var vpnStatusLabel = UILabel()
 
@@ -27,10 +34,39 @@ class MainViewController: UITableViewController {
         vpnStatusSwitch.addTarget(self, action: "vpnStatusSwitchValueDidChange:", forControlEvents: .ValueChanged)
 //        vpnStatusLabel.textAlignment = .Right
 //        vpnStatusLabel.textColor = UIColor.grayColor()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "notificationFromWidget:",
+            name: enableCurrentVPNManagerVPNStateFromWidget, object: nil)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NEVPNStatusDidChangeNotification, object: nil)
+    }
+    
+    func notificationFromWidget(notification: NSNotification) -> Bool {
+        // 从通知中心操作
+        let command = notification.userInfo!["command"] as! String
+        do {
+            if let currentVPNManager = self.currentVPNManager {
+                if command == "start" {
+                    if currentVPNManager.enabled == false {
+                        currentVPNManager.enabled = true
+                        currentVPNManager.saveToPreferencesWithCompletionHandler { (error) -> Void in
+                            self.loadConfigurationFromSystem()
+                        }
+                    }
+                    try currentVPNManager.connection.startVPNTunnel()
+                    return true
+                }
+                else {
+                    currentVPNManager.connection.stopVPNTunnel()
+                }
+            } else {
+                NSLog("No current vpn manager")
+            }
+        } catch {
+            NSLog("%@", String(error))
+        }
+        return false
     }
     
     func vpnStatusSwitchValueDidChange(sender: UISwitch) {
@@ -152,18 +188,22 @@ class MainViewController: UITableViewController {
             providerProtocol.providerConfiguration = [String: AnyObject]()
             manager.protocolConfiguration = providerProtocol
             
+            providerProtocol.serverAddress = "ShadowVPN"
+            
             let configurationController = ConfigurationViewController(style:.Grouped)
             configurationController.providerManager = manager
             self.navigationController?.pushViewController(configurationController, animated: true)
-            manager.saveToPreferencesWithCompletionHandler({ (error) -> Void in
-                print(error)
-            })
+//            manager.saveToPreferencesWithCompletionHandler({ (error) -> Void in
+//                print(error)
+//            })
         }
     }
     
     func loadConfigurationFromSystem() {
         NETunnelProviderManager.loadAllFromPreferencesWithCompletionHandler() { newManagers, error in
-            print(error)
+            if (error != nil) {
+                print(error)
+            }
             guard let vpnManagers = newManagers else { return }
             self.vpnManagers.removeAll()
             for vpnManager in vpnManagers {
@@ -181,5 +221,57 @@ class MainViewController: UITableViewController {
             self.VPNStatusDidChange(nil)
         }
     }
-
+    
+    func shareVPNDescriptionToUserDefauls(VPNManager: NETunnelProviderManager) {
+        let configuration = (VPNManager.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!
+        let shared = NSUserDefaults(suiteName: groupBundle)
+        
+        if (configuration["description"] != nil && !(configuration["description"] as! String).isEmpty) {
+            shared?.setValue(configuration["description"], forKey: "currentVPN")
+        } else {
+            shared?.setValue(VPNManager.protocolConfiguration?.serverAddress, forKey: "currentVPN")
+        }
+        shared?.synchronize()
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.section == 0 {
+            return false
+        }
+        return true
+    }
+    
+    // override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    //     super.tableView(tableView, commitEditingStyle: editingStyle, forRowAtIndexPath: indexPath)
+    // }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Share") { (action: UITableViewRowAction, indexPath: NSIndexPath) -> Void in
+            self.shareConfiguration(indexPath: indexPath)
+        }
+        return [shareAction]
+    }
+    
+    func shareConfiguration(indexPath indexPath: NSIndexPath) {
+        let selectManager = self.vpnManagers[indexPath.row]
+        
+        let configuration: [String: AnyObject] = (selectManager.protocolConfiguration as! NETunnelProviderProtocol).providerConfiguration!
+        
+        var query =  String()
+        for (k, v) in configuration {
+            let customAllowSet = NSCharacterSet(charactersInString: "#%/<>?@\\^`{|}=& ").invertedSet
+            let value: String = (v as! String).stringByAddingPercentEncodingWithAllowedCharacters(customAllowSet)!
+            
+            if !query.isEmpty {
+                query += "&\(k)=\(value)"
+            } else {
+                query = "shadowvpn://QRCode?" + "\(k)=\(value)"
+            }
+        }
+        
+        let shareVC = QRCodeShareVC()
+        shareVC.configQuery = query
+        self.navigationController?.pushViewController(shareVC, animated: true)
+    }
+    
 }
